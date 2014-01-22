@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+C:\Users\Melissa\Documents\GitHub\RoamApp\.metadata\.plugins\org.eclipse.jdt.core
+318667555.index
+1884478518.index

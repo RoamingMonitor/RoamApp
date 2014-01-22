@@ -1,0 +1,13 @@
+package com.example.roamingapp;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+
+public class SetupActivity extends Activity {
+	
+	public void onCreate(){
+		
+	}
+
+}
