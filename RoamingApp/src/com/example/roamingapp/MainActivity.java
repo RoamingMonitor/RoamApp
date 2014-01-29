@@ -19,25 +19,24 @@ import android.widget.Toast;
         setContentView(R.layout.activity_main);
         
 
-        mySwitch = (Switch) findViewById(R.id.autoTimeSwitch);
+        mySwitch = (Switch) findViewById(R.id.mySwitch);
         
         mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             	
             	if (isChecked) {
 
-            		Toast.makeText(getApplicationContext(), "The switch is ON",
+            		Toast.makeText(getApplicationContext(), "Device is ON",
             		Toast.LENGTH_SHORT).show();
 
             		} else {
 
             		Toast.makeText(getApplicationContext(),
-            		"The switch is OFF", Toast.LENGTH_SHORT).show();
+            		"Device is OFF", Toast.LENGTH_SHORT).show();
             		}
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,18 +44,5 @@ import android.widget.Toast;
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
-    
-   /* @SuppressLint("NewApi") public void onSwitchClicked(View view) {
-        // Is the toggle on?
-        boolean on = ((Switch) view).isChecked();
         
-        if (on) {
-            // Enable vibrate
-        } else {
-            // Disable vibrate
-        }
-    }
-*/
-    
 }
