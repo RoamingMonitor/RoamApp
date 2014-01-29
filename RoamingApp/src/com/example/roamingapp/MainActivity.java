@@ -19,7 +19,7 @@ import android.widget.Toast;
         setContentView(R.layout.activity_main);
         
 
-        mySwitch = (Switch) findViewById(R.id.mySwitch);
+        mySwitch = (Switch) findViewById(R.id.autoTimeSwitch);
         
         mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

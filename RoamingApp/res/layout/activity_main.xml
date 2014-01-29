@@ -6,25 +6,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    tools:ignore="NewApi" >
 
     <TextView
+        android:id="@+id/SettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-        
-    <Switch 
-    	android:id="@+id/mySwitch"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:textOn="ON"
-    	android:textOff="OFF"
-    	android:layout_alignParentTop="true"
-    	android:layout_alignParentRight="true"
-    		
-    	/>
-        
-        
-    
+        android:layout_alignRight="@+id/autoTimeSwitch"
+        android:text="@string/rms_home"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Switch
+        android:id="@+id/autoTimeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/SettingsText"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="25dp"
+        android:textOff="OFF"
+        android:textOn="ON" />
 
 </RelativeLayout>
