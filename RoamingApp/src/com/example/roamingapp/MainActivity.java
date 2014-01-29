@@ -26,18 +26,17 @@ import android.widget.Toast;
             	
             	if (isChecked) {
 
-            		Toast.makeText(getApplicationContext(), "The switch is ON",
+            		Toast.makeText(getApplicationContext(), "Device is ON",
             		Toast.LENGTH_SHORT).show();
 
             		} else {
 
             		Toast.makeText(getApplicationContext(),
-            		"The switch is OFF", Toast.LENGTH_SHORT).show();
+            		"Device is OFF", Toast.LENGTH_SHORT).show();
             		}
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,18 +44,5 @@ import android.widget.Toast;
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
-    
-   /* @SuppressLint("NewApi") public void onSwitchClicked(View view) {
-        // Is the toggle on?
-        boolean on = ((Switch) view).isChecked();
         
-        if (on) {
-            // Enable vibrate
-        } else {
-            // Disable vibrate
-        }
-    }
-*/
-    
 }

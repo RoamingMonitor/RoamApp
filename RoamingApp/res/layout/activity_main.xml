@@ -6,25 +6,90 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    tools:ignore="NewApi" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-        
-    <Switch 
-    	android:id="@+id/mySwitch"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:textOn="ON"
-    	android:textOff="OFF"
-    	android:layout_alignParentTop="true"
-    	android:layout_alignParentRight="true"
-    		
-    	/>
-        
-        
-    
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/home_title" 
+        android:textSize="34sp"
+        android:textStyle="bold"/>
+
+    <Switch
+        android:id="@+id/mySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/mySwitch"
+        android:layout_marginTop="15dp"
+        android:text="@string/recent_notif"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="@string/active_alerts"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="83dp"
+        android:text="@string/menu" 
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignRight="@+id/mySwitch"
+        android:layout_below="@+id/textView4"
+        android:text="@string/setup" 
+        android:gravity="left|center_vertical"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_below="@+id/button2"
+        android:text="@string/history" 
+        android:gravity="left|center_vertical"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignRight="@+id/mySwitch"
+        android:layout_below="@+id/button1"
+        android:text="@string/settings" 
+        android:gravity="left|center_vertical"/>
 
 </RelativeLayout>
