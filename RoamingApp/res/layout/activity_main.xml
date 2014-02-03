@@ -10,7 +10,7 @@
     tools:ignore="NewApi" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/home_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -20,76 +20,77 @@
         android:textStyle="bold"/>
 
     <Switch
-        android:id="@+id/mySwitch"
+        android:id="@+id/on_off_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/home_title"
         android:textOff="OFF"
         android:textOn="ON" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/recent_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/mySwitch"
+        android:layout_below="@+id/on_off_switch"
         android:layout_marginTop="15dp"
         android:text="@string/recent_notif"
         android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/active_alerts_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/recent_title"
+        android:layout_alignBottom="@+id/recent_title"
         android:layout_marginLeft="22dp"
-        android:layout_toRightOf="@+id/textView2"
+        android:layout_toRightOf="@+id/recent_title"
         android:text="@string/active_alerts"
         android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/menu_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/recent_title"
+        android:layout_below="@+id/recent_title"
         android:layout_marginTop="83dp"
         android:text="@string/menu" 
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/setup_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignRight="@+id/mySwitch"
-        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/menu_title"
+        android:layout_alignRight="@+id/on_off_switch"
+        android:layout_below="@+id/menu_title"
         android:text="@string/setup" 
         android:gravity="left|center_vertical"/>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/history_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignRight="@+id/button2"
-        android:layout_below="@+id/button2"
+        android:layout_alignLeft="@+id/settings_button"
+        android:layout_alignRight="@+id/settings_button"
+        android:layout_below="@+id/settings_button"
         android:text="@string/history" 
         android:gravity="left|center_vertical"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/mySwitch"
-        android:layout_below="@+id/button1"
+        android:layout_alignLeft="@+id/setup_button"
+        android:layout_alignRight="@+id/on_off_switch"
+        android:layout_below="@+id/setup_button"
         android:text="@string/settings" 
-        android:gravity="left|center_vertical"/>
+        android:gravity="left|center_vertical"
+        android:onClick="switchToSettings"/>
 
 </RelativeLayout>
