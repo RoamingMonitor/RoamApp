@@ -2,28 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TextView
-        android:id="@+id/SettingsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/settings"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/homeButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/home" 
-         />
+    android:layout_height="match_parent"
+    tools:ignore="NewApi" >
 
     <TextView
         android:id="@+id/schedulingText"
@@ -35,47 +15,270 @@
         android:text="@string/scheduling"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/autoPowerOnText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/schedulingText"
-        android:layout_below="@+id/schedulingText"
-        android:text="@string/automated_power_on"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/startTimeText"
-        android:layout_toRightOf="@+id/startTimeText"
-        android:ems="10"
-        android:hint="@string/start_time_hint"
-        android:inputType="time" >
-
-        <requestFocus />
-    </EditText>
-
-    <TextView
-        android:id="@+id/startTimeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/autoPowerOnText"
-        android:layout_below="@+id/autoPowerOnText"
-        android:text="@string/start_time"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
     <Switch
         android:id="@+id/autoTimeSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/autoPowerOnText"
         android:layout_alignBottom="@+id/autoPowerOnText"
-        android:layout_marginLeft="14dp"
+        android:layout_marginLeft="22dp"
         android:layout_toRightOf="@+id/autoPowerOnText"
         android:textOff="OFF"
         android:textOn="ON"
         tools:ignore="NewApi" />
+
+    <EditText
+        android:id="@+id/editTextStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autoTimeSwitch"
+        android:layout_toRightOf="@+id/startTimeText"
+        android:ems="10"
+        android:hint="@string/time_hint"
+        android:inputType="time"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/startTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextStartTime"
+        android:layout_alignBottom="@+id/editTextStartTime"
+        android:layout_alignLeft="@+id/autoPowerOnText"
+        android:text="@string/start_time"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+   <EditText
+        android:id="@+id/editTextStopTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editTextStartTime"
+        android:layout_below="@+id/editTextStartTime"
+        android:ems="10"
+        android:hint="@string/time_hint"
+        android:inputType="time"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/stopTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextStopTime"
+        android:layout_alignBottom="@+id/editTextStopTime"
+        android:layout_alignRight="@+id/startTimeText"
+        android:text="@string/stop_time"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/sensitivityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/startTimeText"
+        android:layout_below="@+id/editTextStopTime"
+        android:layout_marginTop="14dp"
+        android:text="@string/sensitivity"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/SettingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/autoTimeSwitch"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="14dp"
+        android:text="@string/settings"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/autoPowerOnText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/schedulingText"
+        android:layout_below="@+id/schedulingText"
+        android:layout_marginTop="6dp"
+        android:text="@string/automated_power_on"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/movDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/stopTimeText"
+        android:layout_below="@+id/notifFreqText"
+        android:layout_marginTop="14dp"
+        android:text="@string/movement_duration"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/notifFreqText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sensitivityText"
+        android:layout_below="@+id/sensitivityText"
+        android:layout_marginTop="6dp"
+        android:text="@string/notification_frequency"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/editTextNotifFreq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sensitivityText"
+        android:layout_toRightOf="@+id/notifFreqText"
+        android:ems="10"
+        android:hint="@string/in_minutes"
+        android:inputType="number"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/editTextMovDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextNotifFreq"
+        android:layout_toRightOf="@+id/movDurationText"
+        android:ems="10"
+        android:hint="@string/in_seconds"
+        android:inputType="number"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/roamingAlertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/alarmSettingsText"
+        android:layout_below="@+id/alarmSettingsText"
+        android:layout_marginTop="6dp"
+        android:text="@string/roaming_alert"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/notifText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/roamingAlertText"
+        android:layout_below="@+id/roamingAlertText"
+        android:layout_marginTop="4dp"
+        android:text="@string/notification"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Switch
+        android:id="@+id/notifRASwitch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/alarmText1"
+        android:layout_alignTop="@+id/notifText1"
+        android:layout_toLeftOf="@+id/alarmText1"
+        android:layout_toRightOf="@+id/notifText1"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
+    <TextView
+        android:id="@+id/alarmText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/notifText1"
+        android:layout_alignBottom="@+id/notifText1"
+        android:layout_alignRight="@+id/editTextStopTime"
+        android:text="@string/alarm"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Switch
+        android:id="@+id/alarmRASwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/alarmText1"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/alarmText1"
+        android:layout_toRightOf="@+id/alarmText1"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/roamingAlertText"
+        android:layout_below="@+id/notifText1"
+        android:layout_marginTop="15dp"
+        android:text="@string/sleepwalking_alert"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/notifText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/roamingAlertText"
+        android:layout_below="@+id/textView8"
+        android:layout_marginTop="4dp"
+        android:text="@string/notification"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/alarmText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/notifText2"
+        android:layout_alignBottom="@+id/notifText2"
+        android:layout_toLeftOf="@+id/alarmRASwitch"
+        android:text="@string/alarm"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Switch
+        android:id="@+id/notifSWSwitch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/notifText2"
+        android:layout_alignRight="@+id/notifRASwitch1"
+        android:layout_alignTop="@+id/notifText2"
+        android:layout_toRightOf="@+id/schedulingText"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
+    <Switch
+        android:id="@+id/alarmSWSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/alarmText2"
+        android:layout_alignLeft="@+id/alarmRASwitch"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView8"
+        android:textOff="OFF"
+        android:textOn="ON" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/save" />
+
+    <Button
+        android:id="@+id/homeButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@+id/editTextStartTime"
+        android:onClick="goHome"
+        android:padding="0dip"
+        android:text="@string/home"
+        android:textSize="14sp"
+        android:width="20dip" />
+
+    <TextView
+        android:id="@+id/alarmSettingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/movDurationText"
+        android:layout_below="@+id/editTextMovDuration"
+        android:layout_marginTop="12dp"
+        android:text="@string/alert_settings"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

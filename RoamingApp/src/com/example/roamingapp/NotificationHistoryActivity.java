@@ -3,6 +3,7 @@ package com.example.roamingapp;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,5 +55,9 @@ public class NotificationHistoryActivity extends ListActivity{
         return true;
     }
 
+    public void goHome(View view){
+		Intent intent = new Intent(this, MainActivity.class);
+	    startActivity(intent);
+	}
 	
 }
