@@ -3,6 +3,7 @@ package com.example.roamingapp;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -18,9 +19,7 @@ import android.widget.Toast;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-
-        mySwitch = (Switch) findViewById(R.id.mySwitch);
-        
+        mySwitch = (Switch) findViewById(R.id.on_off_switch);      
         mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             	
@@ -37,6 +36,12 @@ import android.widget.Toast;
             }
         });
     }
+    
+    
+    public void switchToSettings(View view){
+    	Intent intent = new Intent(this, SettingsActivity.class);
+    	startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,5 +49,6 @@ import android.widget.Toast;
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
         
 }
