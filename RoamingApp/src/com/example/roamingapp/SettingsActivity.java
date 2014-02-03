@@ -13,14 +13,6 @@ public class SettingsActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        
-        final Button button = (Button) findViewById(R.id.homeButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-            	//Intent intent = new Intent(this, MainActivity.class);
-            }
-        });
     }
 
 
@@ -31,5 +23,8 @@ public class SettingsActivity extends Activity{
         return true;
     }
 
-	
+	public void goHome(View view){
+		Intent intent = new Intent(this, MainActivity.class);
+	    startActivity(intent);
+	}
 }
