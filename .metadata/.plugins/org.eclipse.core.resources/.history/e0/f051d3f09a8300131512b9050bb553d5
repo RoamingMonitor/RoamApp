@@ -1,7 +1,0 @@
-package com.example.roamingapp;
-
-import android.app.Activity;
-
-public class NotificationHistoryActivity extends Activity{
-
-}
