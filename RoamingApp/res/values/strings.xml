@@ -18,7 +18,7 @@
     <string name="in_seconds">in seconds</string>
     <string name="alert_settings">Alert Settings</string>
     <string name="roaming_alert">Roaming Alert</string>
-    <string name="notification">"Notification: "</string>
+    <string name="notification">&quot;Notif: &quot;</string>
     <string name="alarm">"Alarm: "</string>
     <string name="sleepwalking_alert">Sleepwalking Alert</string>
     <string name="save">Save</string>
