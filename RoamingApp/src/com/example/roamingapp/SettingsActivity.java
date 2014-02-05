@@ -1,12 +1,14 @@
 package com.example.roamingapp;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class SettingsActivity extends Activity{
 		
 	}
 	
+	@SuppressLint("NewApi")
 	private void saveSettings(){
 		EditText text = (EditText)findViewById(R.id.editTextNotifFreq);
         String notifFreq = text.getText().toString();
@@ -58,8 +61,20 @@ public class SettingsActivity extends Activity{
         TimePicker stopTP = (TimePicker) findViewById(R.id.stopTimePicker);
         String startTime = startTP.getCurrentHour() + ":" + startTP.getCurrentMinute();
         String stopTime = stopTP.getCurrentHour() + ":" + stopTP.getCurrentMinute();
+        Switch switch1 = (Switch)findViewById(R.id.autoTimeSwitch);
+        boolean autoTime =  switch1.isChecked();
+        Switch switch2 = (Switch)findViewById(R.id.notifRASwitch1);
+        boolean notifRA =  switch2.isChecked();
+        Switch switch3 = (Switch)findViewById(R.id.alarmRASwitch);
+        boolean alarmRA =  switch3.isChecked();
+        Switch switch4 = (Switch)findViewById(R.id.notifSWSwitch1);
+        boolean notifSW =  switch4.isChecked();
+        Switch switch5 = (Switch)findViewById(R.id.alarmSWSwitch);
+        boolean alarmSW =  switch5.isChecked();
         //TODO Need to get Settings class from master branch
-        //Settings currentSettings = new Settings(startTime, stopTime, notifFreq, moveDuration);
+        //Settings currentSettings = new Settings(autoTime, startTime, stopTime, notifFreq, moveDuration
+        //			notifRA, alarmRA, notifSW, alarmSW);
+        
         
 	}
 }
