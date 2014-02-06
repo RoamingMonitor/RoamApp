@@ -19,65 +19,37 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+
 import android.os.Looper;
 
 public class ClientAdapter {
 	//TODO fill out URL with server info
-	final String URL = "";
+	final static String URL = "";
 	
-	/*protected void sendJson(final Settings settings) {
-        Thread t = new Thread() {
-
-            public void run() {
-                Looper.prepare(); //For Preparing Message Pool for the child Thread
-                HttpClient client = new DefaultHttpClient();
-                HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); //Timeout Limit
-                HttpResponse response;
-                JSONObject json = new JSONObject();
-
-                try {
-                    HttpPost post = new HttpPost(URL);
-                    json.put("settings", settings);
-                    StringEntity se = new StringEntity( json.toString());  
-                    se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-                    post.setEntity(se);
-                    response = client.execute(post);
-
-                    Checking response 
-                    if(response!=null){
-                        InputStream in = response.getEntity().getContent(); //Get the data in the entity
-                    }
-
-                } catch(Exception e) {
-                    e.printStackTrace();
-                    //createDialog("Error", "Cannot Estabilish Connection");
-                }
-
-                Looper.loop(); //Loop in the message queue
-            }
-        };
-
-        t.start();      
-    }*/
-	
-	public void postData(final Settings settings) {
+	public static HttpResponse postData(final Settings settings) {
 	    // Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
 	    
 	    HttpPost httppost = new HttpPost(URL);
+	    
 
 	    try {
 	        // Add your data
-	        httppost.setEntity(new UrlEncodedFormEntity(settings));
+	    	Gson gson = new Gson();
+	    	String json = gson.toJson(settings);
+	    	StringEntity entity = new StringEntity(json);
+	        httppost.setEntity(entity);
 
 	        // Execute HTTP Post Request
 	        HttpResponse response = httpclient.execute(httppost);
-	        
+	        return response;
 	    } catch (ClientProtocolException e) {
 	        // TODO Auto-generated catch block
 	    } catch (IOException e) {
 	        // TODO Auto-generated catch block
 	    }
+	    return null;
 	} 
 			
 }
