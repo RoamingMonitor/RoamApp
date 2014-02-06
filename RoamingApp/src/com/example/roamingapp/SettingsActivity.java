@@ -1,5 +1,7 @@
 package com.example.roamingapp;
 
+import org.apache.http.HttpResponse;
+
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -71,10 +73,12 @@ public class SettingsActivity extends Activity{
         boolean notifSW =  switch4.isChecked();
         Switch switch5 = (Switch)findViewById(R.id.alarmSWSwitch);
         boolean alarmSW =  switch5.isChecked();
-        //TODO Need to get Settings class from master branch
-        //Settings currentSettings = new Settings(autoTime, startTime, stopTime, notifFreq, moveDuration
-        //			notifRA, alarmRA, notifSW, alarmSW);
+
+        Settings currentSettings = new Settings(autoTime, startTP, stopTP, notifFreq, moveDuration,
+        			notifRA, alarmRA, notifSW, alarmSW);
         
+        HttpResponse resp = ClientAdapter.postData(currentSettings);
         
+        //TODO Add functionality for failed post
 	}
 }
