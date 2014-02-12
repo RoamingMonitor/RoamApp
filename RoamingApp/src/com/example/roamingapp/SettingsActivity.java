@@ -1,7 +1,13 @@
 package com.example.roamingapp;
 
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.apache.http.HttpResponse;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +21,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class SettingsActivity extends Activity{
+	
+    String SENDER_ID = "645540694740";
+	
+	GoogleCloudMessaging gcm;
+    AtomicInteger msgId = new AtomicInteger();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +90,34 @@ public class SettingsActivity extends Activity{
         
         HttpResponse resp = ClientAdapter.postData(currentSettings);
         
+        //sendUpstreamMessage();
+        
         //TODO Add functionality for failed post
+	}
+	
+	// Send an upstream message.
+	public void sendUpstreamMessage(){
+            new AsyncTask<Void, Void, String>() {
+                @Override
+                protected String doInBackground(Void... params) {
+                    String msg = "";
+                    try {
+                        Bundle data = new Bundle();
+                        data.putString("my_message", "Hello World");
+                        data.putString("my_action", "com.google.android.gcm.demo.app.ECHO_NOW");
+                        String id = Integer.toString(msgId.incrementAndGet());
+                        gcm.send(SENDER_ID + "@gcm.googleapis.com", id, data);
+                        msg = "Sent message";
+                    } catch (IOException ex) {
+                        msg = "Error :" + ex.getMessage();
+                    }
+                    Toast.makeText(getApplicationContext(), "Upstream message sent: " + msg,
+                     		Toast.LENGTH_SHORT).show();
+                    return msg;
+                }
+
+                
+            }.execute(null, null, null);
+        
 	}
 }
