@@ -48,32 +48,54 @@ public class SettingsActivity extends Activity{
 	}
 	
 	public void save(View view){
-		Toast toast;
-		boolean validate = false;
-		if(validate){
-			showIncorrectInput();
-			toast = Toast.makeText(getApplicationContext(),"Incorrect Input",Toast.LENGTH_SHORT);
-		} else {
-			saveSettings();
-			toast =Toast.makeText(getApplicationContext(), "Settings Saved", Toast.LENGTH_SHORT);
-		}
-		toast.show();
-	}
-	
-	private void showIncorrectInput(){
 		
+		Settings currentSettings = createSettings();
+        
+		Toast toast = new Toast(null);
+
+        if (currentSettings != null){
+        	HttpResponse resp = ClientAdapter.postData(currentSettings);
+			toast =Toast.makeText(getApplicationContext(), "Settings Saved", Toast.LENGTH_SHORT);
+        } else {
+			toast =Toast.makeText(getApplicationContext(), "Input Incorrect", Toast.LENGTH_SHORT);
+        }
+
+        toast.show();
 	}
 	
-	@SuppressLint("NewApi")
-	private void saveSettings(){
+	private void showError(EditText text){
+		text.setError("Input required");
+    }
+	
+	//Create Settings object to be passed to gson
+	@SuppressLint("NewApi") public Settings createSettings(){
+		boolean error = false;
+		
 		EditText text = (EditText)findViewById(R.id.editTextNotifFreq);
-        String notifFreq = text.getText().toString();
+		String notifFreq = "";
+		if(validEntry(text)){
+			notifFreq = text.getText().toString();
+		} else {
+			showError(text);
+			error = true;
+		}
+       
         text = (EditText)findViewById(R.id.editTextMovDuration);
-        String moveDuration = text.getText().toString();
+        String moveDuration = "";
+		if(validEntry(text)){
+			moveDuration = text.getText().toString();
+		} else {
+			showError(text);
+			error = true;
+		}
+		
+		if (error) return null;				//Return null object signifying improper input
+		
         TimePicker startTP = (TimePicker) findViewById(R.id.startTimePicker);
         TimePicker stopTP = (TimePicker) findViewById(R.id.stopTimePicker);
-        String startTime = startTP.getCurrentHour() + ":" + startTP.getCurrentMinute();
-        String stopTime = stopTP.getCurrentHour() + ":" + stopTP.getCurrentMinute();
+        //String startTime = startTP.getCurrentHour() + ":" + startTP.getCurrentMinute();
+        //String stopTime = stopTP.getCurrentHour() + ":" + stopTP.getCurrentMinute();
+        
         Switch switch1 = (Switch)findViewById(R.id.autoTimeSwitch);
         boolean autoTime =  switch1.isChecked();
         Switch switch2 = (Switch)findViewById(R.id.notifRASwitch1);
@@ -85,14 +107,19 @@ public class SettingsActivity extends Activity{
         Switch switch5 = (Switch)findViewById(R.id.alarmSWSwitch);
         boolean alarmSW =  switch5.isChecked();
 
-        Settings currentSettings = new Settings(autoTime, startTP, stopTP, notifFreq, moveDuration,
+        return new Settings(autoTime, startTP, stopTP, notifFreq, moveDuration,
         			notifRA, alarmRA, notifSW, alarmSW);
         
-        HttpResponse resp = ClientAdapter.postData(currentSettings);
+	}
+	
+	//Check for valid entry
+	public boolean validEntry(EditText text){
+
+        if(text == null){
+        	return false;
+        }
         
-        //sendUpstreamMessage();
-        
-        //TODO Add functionality for failed post
+        return true;
 	}
 	
 	// Send an upstream message.

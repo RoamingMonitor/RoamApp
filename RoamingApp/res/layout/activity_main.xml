@@ -80,7 +80,8 @@
         android:layout_alignRight="@+id/settings_button"
         android:layout_below="@+id/settings_button"
         android:text="@string/history" 
-        android:gravity="left|center_vertical"/>
+        android:gravity="left|center_vertical"
+        android:onClick="switchToNotifHistory"/>
 
     <Button
         android:id="@+id/settings_button"
