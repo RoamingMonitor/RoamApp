@@ -101,6 +101,11 @@ import android.widget.Toast;
     	startActivity(intent);
     }
     
+    public void switchToNotifHistory(View view){
+    	Intent intent = new Intent(this, NotificationHistoryActivity.class);
+    	startActivity(intent);
+    }
+    
     /**
      * Check the device to make sure it has the Google Play Services APK. If
      * it doesn't, display a dialog that allows users to download the APK from

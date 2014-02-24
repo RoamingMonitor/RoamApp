@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+      android:id="@+id/messageTitle"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="@string/notif_log_title" />
+   <TextView
+       android:id="@+id/dateAndTime"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/notif_log_date_and_time" />
+   <TextView
+       android:id="@+id/messageBody"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/notif_log_message_body" /> 
+
+</LinearLayout>
+-->
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:paddingTop="0dip" android:layout_gravity="top">
+        <TableRow>
+  		   <TableLayout
+          		android:layout_width="fill_parent"
+          		android:layout_height="wrap_content"
+          		android:paddingTop="0dip" android:layout_gravity="top">
+	            <TableRow>       
+	               <TextView
+	                    android:id="@+id/messageTitle"
+	                    android:layout_height="wrap_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_weight="1" android:layout_gravity="left|center_vertical"
+	                    android:textSize="16sp"
+	                    android:layout_marginLeft="10dip"
+	                    android:layout_marginTop="4dip"
+	                    android:textColor="#000000"
+	                    android:layout_span="1"
+	                    android:text="@string/notif_log_title" 
+	                    />
+	              </TableRow>
+	              <TableRow>          
+	                 <TextView
+	                    android:text="@string/notif_log_date_and_time"
+	                    android:id="@+id/dateAndTime"
+	                    android:layout_height="wrap_content"
+	                    android:layout_width="wrap_content"
+	                    android:layout_weight="1"
+	                    android:layout_gravity="left|center_vertical"
+	                    android:textSize="12sp"
+	                    android:textColor="#000000"
+	                    android:layout_marginLeft="10dip"
+	                    android:layout_marginTop="2dip"
+	                    android:gravity="left"/>
+	              </TableRow>
+            </TableLayout>            
+            <TextView
+            	android:id="@+id/messageBody"
+             	android:layout_width="wrap_content"
+             	android:layout_height="match_parent"
+             	android:layout_marginLeft="10dp"
+             	android:layout_marginTop="6dp"
+             	android:gravity="left"
+             	android:text="@string/notif_log_message_body" 
+             	/>
+		</TableRow>
+</TableLayout>
