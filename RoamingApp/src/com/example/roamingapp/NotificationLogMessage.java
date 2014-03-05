@@ -36,6 +36,7 @@ public class NotificationLogMessage {
 	          return logMessages;
 	    }
 	    
+	    //Getter and Setter methods used for testing
 	    /*********** Set Methods ******************/
         
         public void setMessageTitle(String messageTitle)

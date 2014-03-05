@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TimePicker;
@@ -50,12 +49,11 @@ public class SettingsActivity extends Activity{
 	public void save(View view){
 		
 		Settings currentSettings = createSettings();
-        
-		Toast toast = new Toast(null);
+		Toast toast;
 
         if (currentSettings != null){
         	HttpResponse resp = ClientAdapter.postData(currentSettings);
-			toast =Toast.makeText(getApplicationContext(), "Settings Saved", Toast.LENGTH_SHORT);
+			toast = Toast.makeText(getApplicationContext(), "Settings Saved", Toast.LENGTH_SHORT);
         } else {
 			toast =Toast.makeText(getApplicationContext(), "Input Incorrect", Toast.LENGTH_SHORT);
         }
@@ -71,30 +69,34 @@ public class SettingsActivity extends Activity{
 	@SuppressLint("NewApi") public Settings createSettings(){
 		boolean error = false;
 		
-		EditText text = (EditText)findViewById(R.id.editTextNotifFreq);
+		EditText text1 = (EditText)findViewById(R.id.editTextNotifFreq);
 		String notifFreq = "";
-		if(validEntry(text)){
-			notifFreq = text.getText().toString();
+		if(validEntry(text1)){
+			notifFreq = text1.getText().toString();
 		} else {
-			showError(text);
+			showError(text1);
 			error = true;
 		}
        
-        text = (EditText)findViewById(R.id.editTextMovDuration);
+        EditText text2 = (EditText)findViewById(R.id.editTextMovDuration);
         String moveDuration = "";
-		if(validEntry(text)){
-			moveDuration = text.getText().toString();
+		if(validEntry(text2)){
+			moveDuration = text2.getText().toString();
 		} else {
-			showError(text);
+			showError(text2);
 			error = true;
 		}
 		
 		if (error) return null;				//Return null object signifying improper input
+		text1.setText("");
+		text2.setText("");
 		
         TimePicker startTP = (TimePicker) findViewById(R.id.startTimePicker);
         TimePicker stopTP = (TimePicker) findViewById(R.id.stopTimePicker);
-        //String startTime = startTP.getCurrentHour() + ":" + startTP.getCurrentMinute();
-        //String stopTime = stopTP.getCurrentHour() + ":" + stopTP.getCurrentMinute();
+        String startTime = startTP.getCurrentHour() + ":" + startTP.getCurrentMinute();
+        String stopTime = stopTP.getCurrentHour() + ":" + stopTP.getCurrentMinute();
+        System.out.println("Start Time: " + startTime);
+        System.out.println("Stop Time: " + stopTime);
         
         Switch switch1 = (Switch)findViewById(R.id.autoTimeSwitch);
         boolean autoTime =  switch1.isChecked();
@@ -106,45 +108,22 @@ public class SettingsActivity extends Activity{
         boolean notifSW =  switch4.isChecked();
         Switch switch5 = (Switch)findViewById(R.id.alarmSWSwitch);
         boolean alarmSW =  switch5.isChecked();
-
-        return new Settings(autoTime, startTP, stopTP, notifFreq, moveDuration,
+        
+        Settings settings = new Settings(autoTime, startTime, stopTime, notifFreq, moveDuration,
         			notifRA, alarmRA, notifSW, alarmSW);
+
+        return settings;
         
 	}
 	
 	//Check for valid entry
 	public boolean validEntry(EditText text){
-
-        if(text == null){
+		String valid = text.getText().toString();
+        if(valid.equals("")){
         	return false;
         }
         
         return true;
 	}
 	
-	// Send an upstream message.
-	public void sendUpstreamMessage(){
-            new AsyncTask<Void, Void, String>() {
-                @Override
-                protected String doInBackground(Void... params) {
-                    String msg = "";
-                    try {
-                        Bundle data = new Bundle();
-                        data.putString("my_message", "Hello World");
-                        data.putString("my_action", "com.google.android.gcm.demo.app.ECHO_NOW");
-                        String id = Integer.toString(msgId.incrementAndGet());
-                        gcm.send(SENDER_ID + "@gcm.googleapis.com", id, data);
-                        msg = "Sent message";
-                    } catch (IOException ex) {
-                        msg = "Error :" + ex.getMessage();
-                    }
-                    Toast.makeText(getApplicationContext(), "Upstream message sent: " + msg,
-                     		Toast.LENGTH_SHORT).show();
-                    return msg;
-                }
-
-                
-            }.execute(null, null, null);
-        
-	}
 }

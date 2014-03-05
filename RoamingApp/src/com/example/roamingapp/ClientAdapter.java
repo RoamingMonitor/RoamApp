@@ -21,35 +21,71 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import android.os.AsyncTask;
 import android.os.Looper;
+import android.util.Log;
 
 public class ClientAdapter {
 	//TODO fill out URL with server info
-	final static String URL = "";
+	private static Settings settingsToSend;
+	final static String URL = "http://rmsystem2014.appspot.com/settings";
 	
 	public static HttpResponse postData(final Settings settings) {
 	    // Create a new HttpClient and Post Header
-	    HttpClient httpclient = new DefaultHttpClient();
-	    
-	    HttpPost httppost = new HttpPost(URL);
-	    
+	    settingsToSend = settings;	    
 
-	    try {
-	        // Add your data
-	    	Gson gson = new Gson();
-	    	String json = gson.toJson(settings);
-	    	StringEntity entity = new StringEntity(json);
-	        httppost.setEntity(entity);
-
-	        // Execute HTTP Post Request
-	        HttpResponse response = httpclient.execute(httppost);
-	        return response;
-	    } catch (ClientProtocolException e) {
-	        // TODO Auto-generated catch block
-	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	    }
+	    new Connection().execute();
+	    
 	    return null;
 	} 
-			
+	
+	private static class Connection extends AsyncTask {
+		 
+        @Override
+        protected HttpResponse doInBackground(Object... arg0) {
+            HttpResponse response = connect();
+            return response;
+        }
+ 
+    }
+ 
+    private static HttpResponse connect() {
+    	
+    	HttpClient httpclient = new DefaultHttpClient();
+    	HttpPost httppost = new HttpPost(URL);
+    	
+        try {
+        	// Add your data
+	    	Gson gson = new Gson();
+	    	String json = gson.toJson(settingsToSend);
+	    	StringEntity entity = new StringEntity(json);
+	        httppost.setEntity(entity);
+        	
+    	    HttpResponse response = httpclient.execute(httppost);
+    	    
+    	    return response;
+        } catch (ClientProtocolException e) {
+            Log.d("HTTPCLIENT", e.getLocalizedMessage());
+            return null;
+        } catch (IOException e) {
+            Log.d("HTTPCLIENT", e.getLocalizedMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * Whenever doInBackground finished, this method is
+     * called with the doInBackground return value.
+     */
+    protected void onPostExecute(HttpResponse response) {
+        /**
+         * You need to check if any exceptions where
+         * set in the background process and handle 
+         * them.
+         *
+         * Check this.exception
+         */
+ 
+        // Do something with your value
+    }
 }

@@ -30,19 +30,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("NewApi") public class MainActivity extends Activity {
-	private Switch mySwitch;
+	private static Switch deviceStatusSwitch;
 	
 	public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private static boolean deviceStatusFlag = false;
+    private static String updateTime = "n/a";
     
     String SENDER_ID = "645540694740";    
     
     /**
      * Tag used on log messages.
      */
-    static final String TAG = "GCM Demo";
+    static final String TAG = "GCM Registration: MainActivity";
     
     String regid;
     GoogleCloudMessaging gcm;
@@ -57,6 +59,11 @@ import android.widget.Toast;
         setContentView(R.layout.activity_main);
         
         context = getApplicationContext();
+        
+        deviceStatusSwitch = (Switch) findViewById(R.id.on_off_switch);
+        
+        updateDeviceStatus(deviceStatusFlag, "");
+        updateTimeText();
         
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
@@ -76,24 +83,36 @@ import android.widget.Toast;
         
     }
     
+    public static void updateDeviceStatus(boolean deviceStatus, String dateString){
+    	 deviceStatusSwitch.setChecked(deviceStatus);
+    	 if (!dateString.equals("")){
+    		 updateTime = dateString;
+    	 }
+    }
+    
+    private void updateTimeText(){
+    	TextView textView = (TextView) findViewById(R.id.updateTimeText);
+    	textView.setText("Last updated: " + updateTime);
+    }
+    
     //Toast message displays device status after change of state
     public void displayDeviceStatusOnClick(){
-    	 mySwitch = (Switch) findViewById(R.id.on_off_switch);      
-         mySwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+         deviceStatusSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
              	
-             	if (isChecked) {
-
-             		Toast.makeText(getApplicationContext(), "Device is ON",
-             		Toast.LENGTH_SHORT).show();
+             		if (isChecked) {
+             			deviceStatusFlag = true;
+             			Toast.makeText(getApplicationContext(), "Device is ON",
+             					Toast.LENGTH_SHORT).show();
 
              		} else {
-
-             		Toast.makeText(getApplicationContext(),
-             		"Device is OFF", Toast.LENGTH_SHORT).show();
+             			deviceStatusFlag = false;
+	             		Toast.makeText(getApplicationContext(),
+	             				"Device is OFF", Toast.LENGTH_SHORT).show();
              		}
              }
          });
+         
     }
     
     public void switchToSettings(View view){
@@ -103,6 +122,11 @@ import android.widget.Toast;
     
     public void switchToNotifHistory(View view){
     	Intent intent = new Intent(this, NotificationHistoryActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void switchToSetup(View view){
+    	Intent intent = new Intent(this, SetupActivity.class);
     	startActivity(intent);
     }
     

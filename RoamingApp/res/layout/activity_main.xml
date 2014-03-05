@@ -9,16 +9,6 @@
     tools:context=".MainActivity"
     tools:ignore="NewApi" >
 
-    <TextView
-        android:id="@+id/home_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/home_title" 
-        android:textSize="34sp"
-        android:textStyle="bold"/>
-
     <Switch
         android:id="@+id/on_off_switch"
         android:layout_width="wrap_content"
@@ -27,29 +17,6 @@
         android:layout_below="@+id/home_title"
         android:textOff="OFF"
         android:textOn="ON" />
-
-    <TextView
-        android:id="@+id/recent_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/on_off_switch"
-        android:layout_marginTop="15dp"
-        android:text="@string/recent_notif"
-        android:textSize="17sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/active_alerts_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/recent_title"
-        android:layout_alignBottom="@+id/recent_title"
-        android:layout_marginLeft="22dp"
-        android:layout_toRightOf="@+id/recent_title"
-        android:text="@string/active_alerts"
-        android:textSize="17sp"
-        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/menu_title"
@@ -70,7 +37,8 @@
         android:layout_alignRight="@+id/on_off_switch"
         android:layout_below="@+id/menu_title"
         android:text="@string/setup" 
-        android:gravity="left|center_vertical"/>
+        android:gravity="left|center_vertical"
+        android:onClick="switchToSetup"/>
 
     <Button
         android:id="@+id/history_button"
@@ -93,5 +61,56 @@
         android:text="@string/settings" 
         android:gravity="left|center_vertical"
         android:onClick="switchToSettings"/>
+
+    <TextView
+        android:id="@+id/updateTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/active_alerts_title"
+        android:layout_alignRight="@+id/active_alerts_title"
+        android:layout_below="@+id/on_off_switch"
+        android:text="@string/update_time" 
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/active_alerts_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/on_off_switch"
+        android:layout_alignTop="@+id/recent_title"
+        android:text="@string/active_alerts"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/active_alerts_title"
+        android:layout_toLeftOf="@+id/on_off_switch"
+        android:src="@drawable/transparent_logo"
+        android:contentDescription="@string/rms_logo" />
+
+    <TextView
+        android:id="@+id/recent_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_below="@+id/updateTimeText"
+        android:layout_marginTop="68dp"
+        android:text="@string/recent_notif"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/home_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/on_off_switch"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="17dp"
+        android:text="@string/home_title"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

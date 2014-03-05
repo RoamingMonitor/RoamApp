@@ -1,16 +1,20 @@
 package com.example.roamingapp;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent; 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock; 
-import android.support.v4.app.NotificationCompat;
+import android.text.format.Time;
 import android.util.Log;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 /**
  * This {@code IntentService} does the actual handling of the GCM message.
@@ -20,14 +24,11 @@ import android.util.Log;
  * wake lock.
  */
 public class GcmIntentService extends IntentService {
-    public static final int NOTIFICATION_ID = 1;
-    private NotificationManager mNotificationManager;
-    NotificationCompat.Builder builder;
 
     public GcmIntentService() {
         super("GcmIntentService");
     }
-    public static final String TAG = "GCM Demo";
+    public static final String TAG = "GCMIntentService";
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -44,49 +45,67 @@ public class GcmIntentService extends IntentService {
              * not interested in, or that you don't recognize.
              */
             if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-                sendNotification("Send error: " + extras.toString());
+                Log.i(TAG, "Send error: " + extras.toString());
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
-                sendNotification("Deleted messages on server: " + extras.toString());
+                Log.i(TAG, "Deleted messages on server: " + extras.toString());
             // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 // This loop represents the service doing some work.
-                for (int i = 0; i < 5; i++) {
-                    Log.i(TAG, "Working... " + (i + 1)
-                            + "/5 @ " + SystemClock.elapsedRealtime());
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                    }
-                }
-                Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-                // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
-                Log.i(TAG, "Received: " + extras.toString());
+            	persistLogMessage(extras);
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
         GcmBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    // Put the message into a notification and post it.
-    // This is just one simple example of what you might choose to do with
-    // a GCM message.
-    private void sendNotification(String msg) {
-        mNotificationManager = (NotificationManager)
-                this.getSystemService(Context.NOTIFICATION_SERVICE);
+    private void persistLogMessage(Bundle extras){
+    	//TODO use Bundle.get(String key) to get the json object containing log messages
+    	//from the server.
+    	boolean alertFlag = false;
+    	NotificationLogMessage logMessage = null;
+    	ArrayList<NotificationLogMessage> multLogMessages = new ArrayList<NotificationLogMessage>();
+    	
+    	try {
+    		
+    		if (extras.containsKey("logMessage")){
+	    		JSONObject jsonObject = new JSONObject(extras.getString("logmessage"));
+	    		logMessage = new NotificationLogMessage(jsonObject);
+	    		alertFlag = true;
+    		} 
+    		
+    		if (extras.containsKey("multipleLogMessages")){
+	    		//TODO add implementation for receiving an array of log messages
+	    		JSONArray jsonObjects = new JSONArray(extras.getString("multipleLogMessages"));
+	    		multLogMessages = NotificationLogMessage.fromJson(jsonObjects);
+	    		alertFlag = true;
+    		}
+    	
+    		if (extras.containsKey("activeStatus")){
+    			JSONObject jsonObject = new JSONObject(extras.getString("activeStatus"));
+    			boolean activeFlag = jsonObject.getBoolean("activeFlag");
+    			/*Time today = new Time(Time.getCurrentTimezone());
+    			today.setToNow();*/
+    			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    			Date date = new Date();
+    			String dateString = fmt.format(date);
+    			alertFlag = true;
+    			MainActivity.updateDeviceStatus(activeFlag, dateString);    			
+    		}
+    		
+			if (logMessage != null)
+				NotificationHistoryActivity.updateNotifLogArray(logMessage);
+			else if (multLogMessages.isEmpty())
+				Log.i(TAG, "The logMessage is empty");
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
+			if (!multLogMessages.isEmpty())
+				NotificationHistoryActivity
+						.updateNotifLogArray(multLogMessages);
+			else if (logMessage == null)
+				Log.i(TAG, "The multipleLogMessages is empty");
+			
+    	} catch (JSONException je){
+    		System.err.println("JSON Exception in GCMIntentService.persistLogMessage()");
+    	}
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-        //.setSmallIcon(R.drawable.ic_stat_gcm)
-        .setContentTitle("GCM Notification")
-        .setStyle(new NotificationCompat.BigTextStyle()
-        .bigText(msg))
-        .setContentText(msg);
-
-        mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }
