@@ -1,32 +1,30 @@
 package com.example.roamingapp;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
-import android.content.DialogInterface.OnClickListener;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class NotificationHistoryActivity extends ListActivity{
-	
-	ListView list;
+    
+	private ListView list;
+	private boolean test = true;
     NotificationAdapter adapter;
+    private static Context context;
     public  NotificationHistoryActivity CustomListView = null;
+    private static ArrayList<NotificationLogMessage> arrayOfNotifLogs;
     public  ArrayList<NotificationLogMessage> testArr = new ArrayList<NotificationLogMessage>();
 
     @Override
@@ -34,22 +32,24 @@ public class NotificationHistoryActivity extends ListActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notif_hist);
         
-       /* // Construct the data source
-        ArrayList<NotificationLogMessage> arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
-        // Create the adapter to convert the array to views
-        NotificationAdapter adapter = new NotificationAdapter(this, arrayOfNotifLogs);
-        // Attach the adapter to a ListView
-        ListView listView = getListView();
-        listView.setAdapter(adapter);*/
+        // Construct the data source
+        if (!test) {
+        	arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
+        	// Create the adapter to convert the array to views
+        	NotificationAdapter adapter = new NotificationAdapter(this, arrayOfNotifLogs);
+        	// Attach the adapter to a ListView
+        	ListView listView = getListView();
+        	listView.setAdapter(adapter);
+        } else {
+        	CustomListView = this;  
+            setListData();  
+            Resources res = getResources();
+            list = getListView(); 
+            adapter=new NotificationAdapter(CustomListView, testArr, res, this);
+            list.setAdapter( adapter );
+        }
         
-        //Begin code for manual testing
-        CustomListView = this;  
-        setListData();  
-        Resources res = getResources();
-        list = getListView(); 
-        adapter=new NotificationAdapter(CustomListView, testArr, res, this);
-        list.setAdapter( adapter );
-        //End code for manual testing
+        context = this;
     }
     
     /****** Function to set data in ArrayList *************/
@@ -62,8 +62,8 @@ public class NotificationHistoryActivity extends ListActivity{
                  
               /******* Firstly take data in model object ******/
                alert.setMessageTitle("Message Title "+i);
-               alert.setDateAndTime("0:00"+i+"/"+i+"/"+"2014");
-               alert.setMessageBody("http:\\www."+i+".com");
+               alert.setDateAndTime(i+":00am "+i+"/"+i+"/"+"2014");
+               alert.setMessageBody("There are now " + i + " messages");
                 
             /******** Take Model Object in ArrayList **********/
             testArr.add( alert );
@@ -99,4 +99,18 @@ public class NotificationHistoryActivity extends ListActivity{
 	    startActivity(intent);
 	}
 	
+    public static void updateNotifLogArray(NotificationLogMessage logMessage){
+    	arrayOfNotifLogs.add(logMessage);
+    	MessageHandler msg = new MessageHandler(NotificationHistoryActivity.context);
+    	msg.sendNotification(logMessage);
+    }
+    
+    public static void updateNotifLogArray(ArrayList<NotificationLogMessage> multLogMessages){
+    	
+    	for (int i = 0; i < multLogMessages.size(); i++) {
+    		updateNotifLogArray(multLogMessages.get(i));
+        }
+    	
+    }
+    
 }

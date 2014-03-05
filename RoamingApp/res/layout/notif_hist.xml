@@ -21,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/home" />
+        android:text="@string/home" 
+        android:onClick="goHome"/>
 
     <ListView
         android:id="@android:id/list"

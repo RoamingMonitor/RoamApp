@@ -29,5 +29,13 @@
     <string name="menu">Menu</string>
     <string name="setup">Set Up</string>
     <string name="history">Notification History</string>
+    <string name="notif_log_title">Title</string>
+    <string name="notif_log_date_and_time">Date and Time</string>
+    <string name="notif_log_message_body">Message Body</string>
+    <string name="update_time">Time</string>
+    <string name="rms_logo">RMS Logo</string>
+    <string name="device_setup">Device Setup</string>
+    <string name="enter_verification_from_device">Enter verification from device</string>
+    <string name="submit">Submit</string>
 
 </resources>

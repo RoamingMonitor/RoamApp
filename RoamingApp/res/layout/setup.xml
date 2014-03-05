@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/setupTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="19dp"
+        android:text="@string/device_setup"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/verif_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/setupTitle"
+        android:layout_below="@+id/setupTitle"
+        android:layout_marginTop="31dp"
+        android:layout_toLeftOf="@+id/submit_verif"
+        android:ems="10"
+        android:hint="@string/enter_verification_from_device"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/submit_verif"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/verif_entry"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/verif_entry"
+        android:text="@string/submit" 
+        android:onClick="submitVerification"/>
+
+    <Button
+        android:id="@+id/homeButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/home" 
+        android:onClick="goHome"/>
+
+</RelativeLayout>
