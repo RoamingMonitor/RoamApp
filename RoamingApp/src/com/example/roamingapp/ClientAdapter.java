@@ -28,7 +28,9 @@ import android.util.Log;
 public class ClientAdapter {
 	//TODO fill out URL with server info
 	private static Settings settingsToSend;
-	final static String URL = "http://rmsystem2014.appspot.com/settings";
+	private static String regIdToSend;
+	final static String settingsURL = "http://rmsystem2014.appspot.com/settings";
+	final static String registerURL = "http://rmsystem2014.appspot.com/register";
 	
 	public static HttpResponse postData(final Settings settings) {
 	    // Create a new HttpClient and Post Header
@@ -38,6 +40,14 @@ public class ClientAdapter {
 	    
 	    return null;
 	} 
+	
+	public static HttpResponse postData(String regId){
+		regIdToSend = regId;
+		
+		new Connection().execute();
+	    
+	    return null;
+	}
 	
 	private static class Connection extends AsyncTask {
 		 
@@ -52,13 +62,22 @@ public class ClientAdapter {
     private static HttpResponse connect() {
     	
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost = new HttpPost(URL);
+    	HttpPost httppost; httppost = new HttpPost(settingsURL);
     	
         try {
         	// Add your data
-	    	Gson gson = new Gson();
-	    	String json = gson.toJson(settingsToSend);
-	    	StringEntity entity = new StringEntity(json);
+        	StringEntity entity;
+        	if (settingsToSend != null) {
+        		httppost = new HttpPost(settingsURL);
+        		Gson gson = new Gson();
+        		String json = gson.toJson(settingsToSend);
+        		entity = new StringEntity(json);
+        	} else {
+        		httppost = new HttpPost(registerURL);
+        		String sender = "{\"appID\": \""+regIdToSend+"\"}";
+        		entity = new StringEntity(sender);
+        	}
+	    	
 	        httppost.setEntity(entity);
         	
     	    HttpResponse response = httpclient.execute(httppost);

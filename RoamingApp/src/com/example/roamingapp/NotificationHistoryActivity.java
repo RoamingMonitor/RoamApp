@@ -1,16 +1,15 @@
 package com.example.roamingapp;
 
 import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 public class NotificationHistoryActivity extends ListActivity{
     
 	private ListView list;
-	private boolean test = true;
+	private boolean testFlag = true;
     NotificationAdapter adapter;
     private static Context context;
     public  NotificationHistoryActivity CustomListView = null;
@@ -31,19 +30,19 @@ public class NotificationHistoryActivity extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notif_hist);
+        CustomListView = this; 
+        Resources res = getResources();
         
         // Construct the data source
-        if (!test) {
+        if (!testFlag) {
         	arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
         	// Create the adapter to convert the array to views
-        	NotificationAdapter adapter = new NotificationAdapter(this, arrayOfNotifLogs);
+        	adapter = new NotificationAdapter(CustomListView, arrayOfNotifLogs, res, this);
         	// Attach the adapter to a ListView
         	ListView listView = getListView();
         	listView.setAdapter(adapter);
         } else {
-        	CustomListView = this;  
             setListData();  
-            Resources res = getResources();
             list = getListView(); 
             adapter=new NotificationAdapter(CustomListView, testArr, res, this);
             list.setAdapter( adapter );
@@ -53,8 +52,7 @@ public class NotificationHistoryActivity extends ListActivity{
     }
     
     /****** Function to set data in ArrayList *************/
-    public void setListData()
-    {
+    public void setListData() {
          
         for (int i = 0; i < 11; i++) {
              
@@ -83,7 +81,17 @@ public class NotificationHistoryActivity extends ListActivity{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
       // do something with the data
+    	super.onListItemClick(l, v, position, id);
     	String item = (String) getListAdapter().getItem(position);
+    	new AlertDialog.Builder(this)
+    	   .setTitle("Test")
+    	   .setMessage(item)
+    	   .setPositiveButton("OK",
+    	     new DialogInterface.OnClickListener() {
+    	      public void onClick(DialogInterface dialog, int which) {}}
+    	     )
+    	   .show();
+    	
         Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
     }
 

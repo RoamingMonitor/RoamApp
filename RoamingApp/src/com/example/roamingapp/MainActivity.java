@@ -3,6 +3,8 @@ package com.example.roamingapp;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.http.HttpResponse;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -69,8 +71,10 @@ import android.widget.Toast;
         if (checkPlayServices()) {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
-
+            Log.i(TAG, "RegId is: "  + regid);
+            
             if (regid.isEmpty()) {
+            	Log.i(TAG, "About to register in background");
                 registerInBackground();
             }
         } else {
@@ -191,6 +195,8 @@ import android.widget.Toast;
             Log.i(TAG, "App version changed.");
             return "";
         }
+        Log.i(TAG, "About to send to backend. RegId is: " + registrationId);
+        sendRegistrationIdToBackend(registrationId);
         return registrationId;
     }
     
@@ -235,14 +241,10 @@ import android.widget.Toast;
                     }
                     regid = gcm.register(SENDER_ID);
                     msg = "Device registered, registration ID=" + regid;
-
+                    Log.i(TAG, "RegID is: " + regid);
                     // You should send the registration ID to your server over HTTP, so it
                     // can use GCM/HTTP or CCS to send messages to your app.
-                    sendRegistrationIdToBackend();
-
-                    // For this demo: we don't need to send it because the device will send
-                    // upstream messages to a server that echo back the message using the
-                    // 'from' address in the message.
+                    sendRegistrationIdToBackend(regid);
 
                     // Persist the regID - no need to register again.
                     storeRegistrationId(context, regid);
@@ -264,8 +266,9 @@ import android.widget.Toast;
      * messages to your app. Not needed for this demo since the device sends upstream messages
      * to a server that echoes back the message using the 'from' address in the message.
      */
-    private void sendRegistrationIdToBackend() {
+    private void sendRegistrationIdToBackend(String regid) {
       // TODO Your implementation here.
+    	HttpResponse resp = ClientAdapter.postData(regid);
     }
     
     //Prompt user to enable WIFI if not already on
