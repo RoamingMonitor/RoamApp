@@ -1,6 +1,8 @@
 package com.gmail.utexas.rmsystem.roamingapp;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.HttpResponse;
@@ -41,6 +43,7 @@ import android.widget.Toast;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static boolean deviceStatusFlag = false;
     private static String updateTime = "n/a";
+    private static boolean initial = true;
     
     String SENDER_ID = "645540694740";    
     
@@ -54,6 +57,9 @@ import android.widget.Toast;
     AtomicInteger msgId = new AtomicInteger();
     Context context;
     TextView mDisplay;
+    static boolean status;
+    static String lastUpdated = "";
+    static Date lastUpdatedDate; 
 
 
     @Override
@@ -65,7 +71,7 @@ import android.widget.Toast;
         
         deviceStatusSwitch = (Switch) findViewById(R.id.on_off_switch);
         
-        updateDeviceStatus(deviceStatusFlag, "");
+        updateDeviceStatus();
         updateTimeText();
         
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
@@ -83,16 +89,23 @@ import android.widget.Toast;
         }
         
         GcmBroadcastReceiver gcm = new GcmBroadcastReceiver();
-        enableWIFI();        
+        if(initial){
+        	enableWIFI();
+        	initial = false;
+        }        
         displayDeviceStatusOnClick();
         
     }
+    public static void updateDeviceStatusValues(boolean deviceStatus, String dateString){
+    	status = deviceStatus;
+    	lastUpdated = dateString;
+    }
     
-    public static void updateDeviceStatus(boolean deviceStatus, String dateString){
-    	 deviceStatusSwitch.setChecked(deviceStatus);
-    	 if (!dateString.equals("")){
-    		 updateTime = dateString;
-    	 }
+    public void updateDeviceStatus(){    	    	
+    	deviceStatusSwitch.setChecked(status);
+    	if (!lastUpdated.equals("")){
+    		updateTime = lastUpdated;
+    	}
     }
     
     private void updateTimeText(){
@@ -222,7 +235,7 @@ import android.widget.Toast;
         // This sample app persists the registration ID in shared preferences, but
         // how you store the regID in your app is up to you.
         return getSharedPreferences(MainActivity.class.getSimpleName(),
-                Context.MODE_PRIVATE);
+                Context.MODE_PRIVATE);    	
     }
     
     /**

@@ -26,7 +26,6 @@ import android.os.Looper;
 import android.util.Log;
 
 public class ClientAdapter {
-	//TODO fill out URL with server info
 	private static String messageToSend;
 	private static String urlToSendTo;
 	final static String SETTINGS_URL = "http://rmsystem2014.appspot.com/settings";
