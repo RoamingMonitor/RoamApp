@@ -21,12 +21,12 @@ import android.widget.Toast;
 public class NotificationHistoryActivity extends ListActivity{
     
 	private ListView list;
-	private boolean testFlag = true;
+	private boolean testFlag = false;
     NotificationAdapter adapter;
     private static Context context;
     public  NotificationHistoryActivity CustomListView = null;
     private static ArrayList<NotificationLogMessage> arrayOfNotifLogs;
-    public  ArrayList<NotificationLogMessage> testArr = new ArrayList<NotificationLogMessage>();
+    public ArrayList<NotificationLogMessage> testArr = new ArrayList<NotificationLogMessage>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +34,12 @@ public class NotificationHistoryActivity extends ListActivity{
         setContentView(R.layout.notif_hist);
         CustomListView = this; 
         Resources res = getResources();
+        if(arrayOfNotifLogs == null){
+        	arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
+        }
         
         // Construct the data source
         if (!testFlag) {
-        	arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
         	// Create the adapter to convert the array to views
         	adapter = new NotificationAdapter(CustomListView, arrayOfNotifLogs, res, this);
         	// Attach the adapter to a ListView
@@ -110,6 +112,9 @@ public class NotificationHistoryActivity extends ListActivity{
 	}
 	
     public static void updateNotifLogArray(NotificationLogMessage logMessage){
+    	if(arrayOfNotifLogs == null){
+    		arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
+    	}
     	arrayOfNotifLogs.add(logMessage);
     	MessageHandler msg = new MessageHandler(NotificationHistoryActivity.context);
     	msg.sendNotification(logMessage);

@@ -3,6 +3,7 @@ package com.gmail.utexas.rmsystem.roamingapp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,11 +65,12 @@ public class GcmIntentService extends IntentService {
     	boolean alertFlag = false;
     	NotificationLogMessage logMessage = null;
     	ArrayList<NotificationLogMessage> multLogMessages = new ArrayList<NotificationLogMessage>();
+    	Iterator keyIt = extras.keySet().iterator();
     	
     	try {
     		
     		if (extras.containsKey("logMessage")){
-	    		JSONObject jsonObject = new JSONObject(extras.getString("logmessage"));
+	    		JSONObject jsonObject = new JSONObject(extras.getString("logMessage"));
 	    		logMessage = new NotificationLogMessage(jsonObject);
 	    		alertFlag = true;
     		} 
@@ -85,11 +87,12 @@ public class GcmIntentService extends IntentService {
     			boolean activeFlag = jsonObject.getBoolean("activeFlag");
     			/*Time today = new Time(Time.getCurrentTimezone());
     			today.setToNow();*/
-    			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    			SimpleDateFormat fmt = new SimpleDateFormat("h:mm a");
     			Date date = new Date();
     			String dateString = fmt.format(date);
     			alertFlag = true;
-    			MainActivity.updateDeviceStatus(activeFlag, dateString);    			
+    			MainActivity.updateDeviceStatusValues(activeFlag, dateString);
+    			
     		}
     		
 			if (logMessage != null)
@@ -103,8 +106,9 @@ public class GcmIntentService extends IntentService {
 			else if (logMessage == null)
 				Log.i(TAG, "The multipleLogMessages is empty");
 			
-    	} catch (JSONException je){
+    	} catch (JSONException je){    		
     		System.err.println("JSON Exception in GCMIntentService.persistLogMessage()");
+    		je.printStackTrace();
     	}
 
     }
