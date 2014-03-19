@@ -95,9 +95,9 @@ public class GcmIntentService extends IntentService {
     			
     		}
     		
-			if (logMessage != null)
+			if (logMessage != null){
 				NotificationHistoryActivity.updateNotifLogArray(logMessage);
-			else if (multLogMessages.isEmpty())
+			} else if (multLogMessages.isEmpty())
 				Log.i(TAG, "The logMessage is empty");
 
 			if (!multLogMessages.isEmpty())
