@@ -53,6 +53,7 @@ public class NotificationHistoryActivity extends ListActivity{
         }
         
         context = this;
+        testMessageHandler();
     }
     
     /****** Function to set data in ArrayList *************/
@@ -126,6 +127,15 @@ public class NotificationHistoryActivity extends ListActivity{
     		updateNotifLogArray(multLogMessages.get(i));
         }
     	
+    }
+    
+    private static void testMessageHandler(){
+    	NotificationLogMessage msg = new NotificationLogMessage();
+    	msg.setMessageTitle("Test Notificaiton");
+    	msg.setDateAndTime("3/19/2014 1:35pm");
+    	msg.setMessageBody("Let's see where the message body is displayed and how much is visible.");
+    	MessageHandler mh = new MessageHandler(context);
+    	mh.sendNotification(msg); 	
     }
     
 }
