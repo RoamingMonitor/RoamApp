@@ -1,5 +1,7 @@
 package com.gmail.utexas.rmsystem.roamingapp;
 
+import android.content.Context;
+
 public class Settings {
 	public String id;
 	public int frequency, duration;
@@ -7,9 +9,10 @@ public class Settings {
 	public boolean schedule, roamingNotification, roamingAlarm, sleepwalkingNotification,
 	sleepwalkingAlarm;
 	
-	public Settings(boolean schedule, String start, String end, String frequency, String duration,
+	public Settings(String id, boolean schedule, String start, String end, String frequency, String duration,
 			boolean roamingNotif, boolean roamingAlarm, boolean swNotif, boolean swAlarm){
 		
+		this.id = id;
 		this.schedule = schedule;
 		this.start = start;
 		this.end = end;
