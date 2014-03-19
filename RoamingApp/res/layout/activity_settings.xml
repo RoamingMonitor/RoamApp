@@ -90,7 +90,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/notifSWSwitch1"
+        android:layout_below="@+id/notifSWSwitch"
         android:onClick="save"
         android:text="@string/save" />
 
@@ -209,7 +209,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Switch
-        android:id="@+id/notifRASwitch1"
+        android:id="@+id/notifRASwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/swAlertText"
@@ -220,11 +220,11 @@
         android:textOn="ON" />
 
     <Switch
-        android:id="@+id/notifSWSwitch1"
+        android:id="@+id/notifSWSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/alarmText2"
-        android:layout_alignRight="@+id/notifRASwitch1"
+        android:layout_alignRight="@+id/notifRASwitch"
         android:layout_alignTop="@+id/alarmText2"
         android:layout_toRightOf="@+id/notifText1"
         android:textOff="OFF"
