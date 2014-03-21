@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.example.roamingapp.R;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -18,7 +19,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class NotificationHistoryActivity extends ListActivity{
+@SuppressLint("NewApi") public class NotificationHistoryActivity extends ListActivity{
     
 	private ListView list;
 	private boolean testFlag = false;
@@ -54,6 +55,9 @@ public class NotificationHistoryActivity extends ListActivity{
         
         context = this;
         testMessageHandler();
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);     
     }
     
     /****** Function to set data in ArrayList *************/
@@ -77,9 +81,13 @@ public class NotificationHistoryActivity extends ListActivity{
     @SuppressLint("NewApi")
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-      Toast.makeText(this,
-          String.valueOf(getListView().getCheckedItemCount()),
-          Toast.LENGTH_LONG).show();
+    	Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+    	startActivityForResult(myIntent, 0);    
+    	
+//    	Toast.makeText(this,
+//          String.valueOf(getListView().getCheckedItemCount()),
+//          Toast.LENGTH_LONG).show();
+    	
       return true;
     }
     

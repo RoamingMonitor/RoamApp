@@ -65,9 +65,21 @@ public class GcmIntentService extends IntentService {
     	boolean alertFlag = false;
     	NotificationLogMessage logMessage = null;
     	ArrayList<NotificationLogMessage> multLogMessages = new ArrayList<NotificationLogMessage>();
-    	Iterator keyIt = extras.keySet().iterator();
+    	Iterator keyIt = extras.keySet().iterator();    	
     	
     	try {
+
+    		if (extras.containsKey("activeStatus")){
+    			JSONObject jsonObject = new JSONObject(extras.getString("activeStatus"));
+    			boolean activeFlag = jsonObject.getBoolean("activeFlag");
+    			/*Time today = new Time(Time.getCurrentTimezone());
+    			today.setToNow();*/
+    			SimpleDateFormat fmt = new SimpleDateFormat("h:mm a");
+    			Date date = new Date();
+    			String dateString = fmt.format(date);
+    			alertFlag = true;
+    			MainActivity.updateDeviceStatusValues(activeFlag, dateString);    			
+    		}
     		
     		if (extras.containsKey("logMessage")){
 	    		JSONObject jsonObject = new JSONObject(extras.getString("logMessage"));
@@ -80,20 +92,7 @@ public class GcmIntentService extends IntentService {
 	    		JSONArray jsonObjects = new JSONArray(extras.getString("multipleLogMessages"));
 	    		multLogMessages = NotificationLogMessage.fromJson(jsonObjects);
 	    		alertFlag = true;
-    		}
-    	
-    		if (extras.containsKey("activeStatus")){
-    			JSONObject jsonObject = new JSONObject(extras.getString("activeStatus"));
-    			boolean activeFlag = jsonObject.getBoolean("activeFlag");
-    			/*Time today = new Time(Time.getCurrentTimezone());
-    			today.setToNow();*/
-    			SimpleDateFormat fmt = new SimpleDateFormat("h:mm a");
-    			Date date = new Date();
-    			String dateString = fmt.format(date);
-    			alertFlag = true;
-    			MainActivity.updateDeviceStatusValues(activeFlag, dateString);
-    			
-    		}
+    		}    	
     		
 			if (logMessage != null){
 				NotificationHistoryActivity.updateNotifLogArray(logMessage);

@@ -3,12 +3,15 @@ package com.gmail.utexas.rmsystem.roamingapp;
 import org.apache.http.HttpResponse;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.example.roamingapp.R;
 import com.google.gson.Gson;
 
+@SuppressLint("NewApi")
 public class SetupActivity extends Activity {
 	private String verifCode;
 	Context context;
@@ -26,6 +30,8 @@ public class SetupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setup);
         context = getApplicationContext();
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);   
     }
 
 
@@ -33,6 +39,13 @@ public class SetupActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
         return true;
     }
     

@@ -37,14 +37,4 @@
         android:text="@string/submit" 
         android:onClick="submitVerification"/>
 
-    <Button
-        android:id="@+id/homeButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/home" 
-        android:onClick="goHome"/>
-
 </RelativeLayout>

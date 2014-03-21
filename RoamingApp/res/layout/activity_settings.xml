@@ -5,28 +5,18 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
     	>
-<RelativeLayout 
+
+<RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     tools:ignore="NewApi" >
 
     <TextView
-        android:id="@+id/schedulingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/SettingsText"
-        android:layout_below="@+id/homeButton"
-        android:layout_marginTop="14dp"
-        android:text="@string/scheduling"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/SettingsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/autoTimeSwitch"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="14dp"
         android:text="@string/settings"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -94,21 +84,6 @@
         android:onClick="save"
         android:text="@string/save" />
 
-    <Button
-        android:id="@+id/homeButton"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:layout_toRightOf="@+id/stopTimeText"
-        android:onClick="goHome"
-        android:padding="0dip"
-        android:text="@string/home"
-        android:textSize="14sp"
-        android:width="20dip" />
-
     <TextView
         android:id="@+id/alarmSettingsText"
         android:layout_width="wrap_content"
@@ -124,8 +99,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/autoTimeSwitch"
-        android:layout_toRightOf="@+id/SettingsText"
         android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/SettingsText"
         android:text="@string/stop_time"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -147,25 +122,6 @@
         android:layout_below="@+id/autoTimeSwitch"
         android:layout_marginTop="4dp"
         android:text="@string/start_time"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/notifFreqText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sensitivityText"
-        android:layout_below="@+id/sensitivityText"
-        android:text="@string/notification_frequency"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/moveDurationText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/notifFreqText"
-        android:layout_alignTop="@+id/editTextMovDuration"
-        android:layout_marginTop="8dp"
-        android:text="@string/movement_duration"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
@@ -230,45 +186,12 @@
         android:textOff="OFF"
         android:textOn="ON" />
 
-    <Switch
-        android:id="@+id/autoTimeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/editTextNotifFreq"
-        android:layout_below="@+id/schedulingText"
-        android:textOff="OFF"
-        android:textOn="ON"
-        tools:ignore="NewApi" />
-
-    <EditText
-        android:id="@+id/editTextMovDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/stopTimeText"
-        android:layout_below="@+id/notifFreqText"
-        android:ems="10"
-        android:hint="@string/in_seconds"
-        android:inputType="number"
-        android:textSize="12sp" />
-
-    <EditText
-        android:id="@+id/editTextNotifFreq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/notifFreqText"
-        android:layout_alignBottom="@+id/notifFreqText"
-        android:layout_toRightOf="@+id/SettingsText"
-        android:ems="10"
-        android:hint="@string/in_seconds"
-        android:inputType="number"
-        android:textSize="12sp" />
-
     <TimePicker
         android:id="@+id/startTimePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/notifFreqText"
         android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/autoPowerOnText"
         android:scaleX="0.4"
         android:scaleY="0.4" />
 
@@ -282,5 +205,51 @@
         android:scaleX="0.4"
         android:scaleY="0.4" />
 
+    <TextView
+        android:id="@+id/schedulingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/SettingsText"
+        android:layout_below="@+id/SettingsText"
+        android:text="@string/scheduling"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Switch
+        android:id="@+id/autoTimeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/autoPowerOnText"
+        android:layout_alignBottom="@+id/autoPowerOnText"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="11dp"
+        android:textOff="OFF"
+        android:textOn="ON"
+        tools:ignore="NewApi" />
+
+    <EditText
+        android:id="@+id/editTextMovDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/stopTimeText"
+        android:layout_below="@+id/startTimePicker"
+        android:ems="10"
+        android:hint="@string/in_seconds"
+        android:inputType="number"
+        android:textSize="12sp" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/moveDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextMovDuration"
+        android:layout_alignBottom="@+id/editTextMovDuration"
+        android:layout_alignLeft="@+id/sensitivityText"
+        android:text="@string/movement_duration"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
 </RelativeLayout>
+
 </ScrollView>
