@@ -29,7 +29,8 @@ public class ClientAdapter {
 	private static String messageToSend;
 	private static String urlToSendTo;
 	final static String SETTINGS_URL = "http://rmsystem2014.appspot.com/settings";
-	final static String REGISTER_URL = "http://rmsystem2014.appspot.com/register";		
+	final static String REGISTER_URL = "http://rmsystem2014.appspot.com/register";
+	final static String MANUAL_TOGGLE = "http://rmsystem2014.appspot.com/manual_status";
 	
 	public static HttpResponse postData(String message, String url){
 		messageToSend = message;

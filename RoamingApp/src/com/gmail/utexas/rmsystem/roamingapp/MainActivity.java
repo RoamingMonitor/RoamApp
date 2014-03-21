@@ -51,14 +51,14 @@ import android.widget.Toast;
      */
     static final String TAG = "GCM Registration: MainActivity";
     
-    String regid;
+    String regid, deviceID;
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     Context context;
     TextView mDisplay;
     static boolean status;
     static String lastUpdated = "";
-    static Date lastUpdatedDate; 
+    static Date lastUpdatedDate;     
 
 
     @Override
@@ -113,22 +113,24 @@ import android.widget.Toast;
     
     //Toast message displays device status after change of state
     public void displayDeviceStatusOnClick(){
-         deviceStatusSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-             	
-             		if (isChecked) {
-             			deviceStatusFlag = true;
-             			Toast.makeText(getApplicationContext(), "Device is ON",
-             					Toast.LENGTH_SHORT).show();
+    	deviceStatusSwitch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+    		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {    
 
-             		} else {
-             			deviceStatusFlag = false;
-	             		Toast.makeText(getApplicationContext(),
-	             				"Device is OFF", Toast.LENGTH_SHORT).show();
-             		}
-             }
-         });
-         
+    			if (isChecked) {
+    				deviceStatusFlag = true;
+    				Toast.makeText(getApplicationContext(), "Device is ON",
+    						Toast.LENGTH_SHORT).show();
+    			} else {
+    				deviceStatusFlag = false;
+    				Toast.makeText(getApplicationContext(),
+    						"Device is OFF", Toast.LENGTH_SHORT).show();
+    			}
+    			Prefs.getPrefs(context, MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+    	        deviceID = Prefs.getDeviceID(context);
+    			toggleInBackground();
+    		}
+    	});
+
     }
     
     public void switchToSettings(View view){
@@ -315,6 +317,20 @@ import android.widget.Toast;
         
     }
 
+    private void toggleInBackground() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                boolean toggledStatus = deviceStatusSwitch.isChecked();
+        		String message = deviceID+","+toggledStatus;
+            	HttpResponse resp = ClientAdapter.postData(message, ClientAdapter.MANUAL_TOGGLE);            	
+            	return null;
+            }
+        }.execute(null, null, null);
+    }
+    
+    
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
