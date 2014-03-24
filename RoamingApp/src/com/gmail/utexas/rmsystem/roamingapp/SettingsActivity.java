@@ -6,12 +6,14 @@ import org.apache.http.HttpResponse;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -22,6 +24,7 @@ import com.example.roamingapp.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 
+@SuppressLint("NewApi")
 public class SettingsActivity extends Activity{
 	
     String SENDER_ID = "645540694740";
@@ -43,15 +46,21 @@ public class SettingsActivity extends Activity{
         if(!(jsonSettings.equals("{}"))){
         	loadSavedSettings(jsonSettings);
         } 
-        	 
-        
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);     
+        return true;
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
         return true;
     }
 
@@ -86,14 +95,14 @@ public class SettingsActivity extends Activity{
 	@SuppressLint("NewApi") public Settings createSettings(){
 		boolean error = false;
 		
-		EditText text1 = (EditText)findViewById(R.id.editTextNotifFreq);
-		String notifFreq = "";
-		if(validEntry(text1)){
-			notifFreq = text1.getText().toString();
-		} else {
-			showError(text1);
-			error = true;
-		}
+//		EditText text1 = (EditText)findViewById(R.id.editTextNotifFreq);
+//		String notifFreq = "";
+//		if(validEntry(text1)){
+//			notifFreq = text1.getText().toString();
+//		} else {
+//			showError(text1);
+//			error = true;
+//		}
        
         EditText text2 = (EditText)findViewById(R.id.editTextMovDuration);
         String moveDuration = "";
@@ -105,7 +114,7 @@ public class SettingsActivity extends Activity{
 		}
 		
 		if (error) return null;				//Return null object signifying improper input
-		text1.setText("");
+//		text1.setText("");
 		text2.setText("");
 		
         TimePicker startTP = (TimePicker) findViewById(R.id.startTimePicker);
@@ -126,7 +135,7 @@ public class SettingsActivity extends Activity{
         Switch switch5 = (Switch)findViewById(R.id.alarmSWSwitch);
         boolean alarmSW =  switch5.isChecked();
         
-        Settings settings = new Settings(Prefs.getAppID(context), autoTime, startTime, stopTime, notifFreq, moveDuration,
+        Settings settings = new Settings(Prefs.getAppID(context), autoTime, startTime, stopTime, moveDuration,
         			notifRA, alarmRA, notifSW, alarmSW);
 
         return settings;
@@ -134,36 +143,44 @@ public class SettingsActivity extends Activity{
 	}
 	
 	@SuppressLint("NewApi") public void loadSavedSettings(String jsonSettings){
-		
 		Gson gson = new Gson();
 		//JSONObject jsonObject = new JSONObject(Prefs.getSettings(context));
         Settings settings = gson.fromJson(Prefs.getSettings(context), Settings.class);
+        
         //autoTimeSwitch
         Switch schedule = (Switch)findViewById(R.id.autoTimeSwitch);
         schedule.setChecked(settings.schedule);
+        
         //startTimePicker
         TimePicker startTime = (TimePicker)findViewById(R.id.startTimePicker);
         startTime.setCurrentHour(Integer.parseInt(settings.start.split(":")[0]));
         startTime.setCurrentMinute(Integer.parseInt(settings.start.split(":")[1]));
+        
         //stopTimePicker
         TimePicker stopTime = (TimePicker)findViewById(R.id.stopTimePicker);
         stopTime.setCurrentHour(Integer.parseInt(settings.end.split(":")[0]));
         stopTime.setCurrentMinute(Integer.parseInt(settings.end.split(":")[1]));
+        
         //editTextNotifFreq
-        EditText notifFreq = (EditText)findViewById(R.id.editTextNotifFreq);
-        notifFreq.setHint(settings.frequency + " seconds");
+//        EditText notifFreq = (EditText)findViewById(R.id.editTextNotifFreq);
+//        notifFreq.setText(settings.frequency+"");
+        
         //editTextMovDuration
         EditText movDuration = (EditText)findViewById(R.id.editTextMovDuration);
-        movDuration.setHint(settings.duration + " seconds");
+        movDuration.setText(settings.duration+"");
+        
         //notifRASwitch
         Switch notifRA = (Switch)findViewById(R.id.notifRASwitch);
         notifRA.setChecked(settings.roamingNotification);
+        
         //alarmRASwitch
         Switch alarmRA = (Switch)findViewById(R.id.alarmRASwitch);
         alarmRA.setChecked(settings.roamingAlarm);
+        
         //notifSWSwitch
         Switch notifSW = (Switch)findViewById(R.id.notifSWSwitch);
         notifSW.setChecked(settings.sleepwalkingNotification);
+        
         //alarmSWSwitch
         Switch alarmSW = (Switch)findViewById(R.id.alarmSWSwitch);
         alarmSW.setChecked(settings.sleepwalkingAlarm);
