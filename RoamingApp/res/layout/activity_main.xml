@@ -113,4 +113,22 @@
         android:textSize="34sp"
         android:textStyle="bold" />
 
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/recent_title"
+        android:layout_alignRight="@+id/imageView1"
+        android:layout_below="@+id/recent_title" 
+        android:layout_alignBottom="@+id/menu_title"/>
+		<!--  android:layout_above="@+id/menu_title"-->
+
+    <ListView
+        android:id="@+id/listView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/menu_title"
+        android:layout_alignTop="@+id/listView1"
+        android:layout_toRightOf="@+id/imageView1" />
+
 </RelativeLayout>
