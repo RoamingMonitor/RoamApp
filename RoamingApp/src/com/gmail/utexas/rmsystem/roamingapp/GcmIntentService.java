@@ -52,6 +52,7 @@ public class GcmIntentService extends IntentService {
             // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
                 // This loop represents the service doing some work.
+            	Log.i(TAG, "About to persist log message");
             	persistLogMessage(extras);
             }
         }
@@ -84,7 +85,12 @@ public class GcmIntentService extends IntentService {
     		if (extras.containsKey("logMessage")){
 	    		JSONObject jsonObject = new JSONObject(extras.getString("logMessage"));
 	    		logMessage = new NotificationLogMessage(jsonObject);
-	    		alertFlag = true;
+	    		//Log.i(TAG, "Message Title: "+logMessage.getMessageTitle());
+	    		Log.i(TAG, "Context: "+NotificationHistoryActivity.context);
+	        	MessageHandler msgHandler = new MessageHandler(NotificationHistoryActivity.context, logMessage);
+	        	Log.i(TAG, "Log Message: "+jsonObject);
+	        	//Log.i(TAG, "About to send alert of type: " + logMessage.getAlertType());
+	        	msgHandler.sendAlert();
     		} 
     		
     		if (extras.containsKey("multipleLogMessages")){
@@ -94,7 +100,9 @@ public class GcmIntentService extends IntentService {
 	    		alertFlag = true;
     		}    	
     		
+    		
 			if (logMessage != null){
+				Log.i(TAG, "Array about to be updated");
 				NotificationHistoryActivity.updateNotifLogArray(logMessage);
 			} else if (multLogMessages.isEmpty())
 				Log.i(TAG, "The logMessage is empty");

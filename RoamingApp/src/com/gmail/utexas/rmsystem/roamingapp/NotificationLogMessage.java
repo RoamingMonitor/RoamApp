@@ -7,17 +7,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NotificationLogMessage {
-		public String messageTitle;
-		public String dateAndTime;
-		public String messageBody;
+		private String messageTitle;
+		private String dateAndTime;
+		private String messageBody;
+		private String alertType;
 		
 		public NotificationLogMessage(){} //Empty Constructor used for testing
 		
 		public NotificationLogMessage(JSONObject object){
 	        try {
+	        	this.alertType = object.getString("alertType");
 	            this.messageTitle = object.getString("messageTitle");
-	            this.dateAndTime = object.getString("dateAndTime");
 	            this.messageBody = object.getString("messageBody");
+	            this.dateAndTime = object.getString("dateAndTime");
 	       } catch (JSONException e) {
 	            e.printStackTrace();
 	       }
@@ -53,6 +55,11 @@ public class NotificationLogMessage {
         {
             this.messageBody = messageBody;
         }
+        
+        public void setAlertType(String type)
+        {
+        	this.alertType = type;
+        }
          
         /*********** Get Methods ****************/
          
@@ -69,5 +76,10 @@ public class NotificationLogMessage {
         public String getMessageBody()
         {
             return this.messageBody;
+        }
+        
+        public String getAlertType()
+        {
+        	return this.alertType;
         }
 }

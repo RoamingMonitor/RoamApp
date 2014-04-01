@@ -2,20 +2,10 @@ package com.gmail.utexas.rmsystem.roamingapp;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.HttpResponse;
 
-import com.example.roamingapp.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.provider.Settings;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,14 +14,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.Switch;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.roamingapp.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 @SuppressLint("NewApi") public class MainActivity extends Activity {
 	private static Switch deviceStatusSwitch;
@@ -59,6 +61,8 @@ import android.widget.Toast;
     static boolean status;
     static String lastUpdated = "";
     static Date lastUpdatedDate;     
+    
+    private NotificationHistoryActivity nha;
 
 
     @Override
@@ -94,6 +98,16 @@ import android.widget.Toast;
         displayDeviceStatusOnClick();
         
     }
+    
+    public void setUpListView(){
+    	ListView lv = (ListView)findViewById(R.id.listView1);
+    	if (nha == null)
+    		nha = new NotificationHistoryActivity();
+    	if (nha.getNotificationAdapter() != null)
+    		lv.setAdapter(nha.getNotificationAdapter());
+    	
+    }
+    
     public static void updateDeviceStatusValues(boolean deviceStatus, String dateString){
     	status = deviceStatus;
     	lastUpdated = dateString;

@@ -1,28 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <TextView
-      android:id="@+id/messageTitle"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="@string/notif_log_title" />
-   <TextView
-       android:id="@+id/dateAndTime"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="@string/notif_log_date_and_time" />
-   <TextView
-       android:id="@+id/messageBody"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="@string/notif_log_message_body" /> 
-
-</LinearLayout>
--->
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
           android:layout_width="fill_parent"

@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,13 +22,18 @@ import android.widget.Toast;
 
 @SuppressLint("NewApi") public class NotificationHistoryActivity extends ListActivity{
     
+	private final String TAG = "NotificationHistoryActivity";
 	private ListView list;
 	private boolean testFlag = false;
     NotificationAdapter adapter;
-    private static Context context;
+    public static Context context;
     public  NotificationHistoryActivity CustomListView = null;
     private static ArrayList<NotificationLogMessage> arrayOfNotifLogs;
     public ArrayList<NotificationLogMessage> testArr = new ArrayList<NotificationLogMessage>();
+    
+    public NotificationHistoryActivity(){
+    	context = this;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +59,8 @@ import android.widget.Toast;
             list.setAdapter( adapter );
         }
         
-        context = this;
-        testMessageHandler();
+        //context = this;
+        //testMessageHandler();
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);     
@@ -95,7 +101,8 @@ import android.widget.Toast;
     public void onListItemClick(ListView l, View v, int position, long id) {
       // do something with the data
     	super.onListItemClick(l, v, position, id);
-    	String item = (String) getListAdapter().getItem(position);
+    	Log.i(TAG, "Position: "  + position);
+    	/*String item = (String) getListAdapter().getItem(position);
     	new AlertDialog.Builder(this)
     	   .setTitle("Test")
     	   .setMessage(item)
@@ -105,7 +112,7 @@ import android.widget.Toast;
     	     )
     	   .show();
     	
-        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();*/
     }
 
     @Override
@@ -124,9 +131,7 @@ import android.widget.Toast;
     	if(arrayOfNotifLogs == null){
     		arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
     	}
-    	arrayOfNotifLogs.add(logMessage);
-    	MessageHandler msg = new MessageHandler(NotificationHistoryActivity.context);
-    	msg.sendNotification(logMessage);
+    	arrayOfNotifLogs.add(0, logMessage);
     }
     
     public static void updateNotifLogArray(ArrayList<NotificationLogMessage> multLogMessages){
@@ -137,13 +142,7 @@ import android.widget.Toast;
     	
     }
     
-    private static void testMessageHandler(){
-    	NotificationLogMessage msg = new NotificationLogMessage();
-    	msg.setMessageTitle("Test Notificaiton");
-    	msg.setDateAndTime("3/19/2014 1:35pm");
-    	msg.setMessageBody("Let's see where the message body is displayed and how much is visible.");
-    	MessageHandler mh = new MessageHandler(context);
-    	mh.sendNotification(msg); 	
+    public NotificationAdapter getNotificationAdapter(){
+    	return adapter;
     }
-    
 }
