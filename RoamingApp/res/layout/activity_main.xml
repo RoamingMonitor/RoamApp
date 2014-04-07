@@ -17,6 +17,9 @@
         android:layout_below="@+id/home_title"
         android:textOff="OFF"
         android:textOn="ON" />
+    
+    <!-- android:thumb="@drawable/switch_thumb"
+    	android:track="@drawable/switch_bg" -->
 
     <TextView
         android:id="@+id/menu_title"
@@ -66,8 +69,8 @@
         android:id="@+id/updateTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/active_alerts_title"
-        android:layout_alignRight="@+id/active_alerts_title"
+        android:layout_alignLeft="@+id/on_off_switch"
+        android:layout_alignRight="@+id/on_off_switch"
         android:layout_below="@+id/on_off_switch"
         android:text="@string/update_time" 
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -78,9 +81,10 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/on_off_switch"
         android:layout_alignTop="@+id/recent_title"
-        android:text="@string/active_alerts"
+        android:text="@string/space"
         android:textSize="17sp"
         android:textStyle="bold" />
+    <!-- @string/active_alerts -->
 
     <ImageView
         android:id="@+id/imageView1"
@@ -98,9 +102,10 @@
         android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/updateTimeText"
         android:layout_marginTop="68dp"
-        android:text="@string/recent_notif"
+        android:text="@string/space"
         android:textSize="17sp"
         android:textStyle="bold" />
+    	<!-- @string/recent_notif -->
 
     <TextView
         android:id="@+id/home_title"

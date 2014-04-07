@@ -30,7 +30,7 @@
         android:layout_below="@+id/schedulingText"
         android:layout_marginTop="6dp"
         android:text="@string/automated_power_on"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/roamingAlertText"
@@ -40,7 +40,7 @@
         android:layout_below="@+id/alarmSettingsText"
         android:layout_marginTop="6dp"
         android:text="@string/roaming_alert"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/swAlertText"
@@ -50,7 +50,7 @@
         android:layout_below="@+id/notifText1"
         android:layout_marginTop="15dp"
         android:text="@string/sleepwalking_alert"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/alarmText2"
@@ -60,7 +60,7 @@
         android:layout_alignBottom="@+id/notifText2"
         android:layout_toLeftOf="@+id/alarmRASwitch"
         android:text="@string/alarm"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Switch
         android:id="@+id/alarmSWSwitch"
@@ -81,6 +81,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/notifSWSwitch"
+        android:layout_marginTop="28sp"
         android:onClick="save"
         android:text="@string/save" />
 
@@ -92,7 +93,7 @@
         android:layout_below="@+id/editTextMovDuration"
         android:layout_marginTop="12dp"
         android:text="@string/alert_settings"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/stopTimeText"
@@ -108,17 +109,18 @@
         android:id="@+id/sensitivityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/stopTimePicker"
+        android:layout_below="@+id/startTimeText"
         android:layout_alignLeft="@+id/autoPowerOnText"
+        android:layout_marginTop="125sp"
         android:layout_marginBottom="12dp"
         android:text="@string/sensitivity"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/startTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/swAlertText"
+        android:layout_alignLeft="@+id/notifText1"
         android:layout_below="@+id/autoTimeSwitch"
         android:layout_marginTop="4dp"
         android:text="@string/start_time"
@@ -131,7 +133,7 @@
         android:layout_above="@+id/swAlertText"
         android:layout_alignLeft="@+id/alarmText2"
         android:text="@string/alarm"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Switch
         android:id="@+id/alarmRASwitch"
@@ -151,18 +153,7 @@
         android:layout_below="@+id/roamingAlertText"
         android:layout_marginTop="4dp"
         android:text="@string/notification"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/notifText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/swAlertText"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_toLeftOf="@+id/stopTimePicker"
-        android:text="@string/notification"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Switch
         android:id="@+id/notifRASwitch"
@@ -212,7 +203,7 @@
         android:layout_alignLeft="@+id/SettingsText"
         android:layout_below="@+id/SettingsText"
         android:text="@string/scheduling"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Switch
         android:id="@+id/autoTimeSwitch"
@@ -235,10 +226,9 @@
         android:ems="10"
         android:hint="@string/in_seconds"
         android:inputType="number"
-        android:textSize="12sp" >
+        android:textSize="16sp" />
 
-        <requestFocus />
-    </EditText>
+       
 
     <TextView
         android:id="@+id/moveDurationText"
@@ -248,7 +238,17 @@
         android:layout_alignBottom="@+id/editTextMovDuration"
         android:layout_alignLeft="@+id/sensitivityText"
         android:text="@string/movement_duration"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/notifText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/swAlertText"
+        android:layout_below="@+id/swAlertText"
+        android:layout_marginLeft="25dp"
+        android:text="@string/notification"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
 

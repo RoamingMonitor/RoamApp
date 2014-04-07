@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -26,6 +27,7 @@ public class MessageHandler {
     private final String FAILURE = "Alert Failure";
     private final String SUCCESS = "Succesful Alert";
     private final String TAG = "MessageHandler.java";
+    private final int onMs = 100, offMs = 100;
     
 	public MessageHandler (Context context, NotificationLogMessage logMessage){
 		this.context = context;
@@ -52,17 +54,22 @@ public class MessageHandler {
         .setStyle(new NotificationCompat.BigTextStyle())
         .setContentText(logMessage.getMessageBody());
         Log.i(TAG, "Message built and ready to send to phone.");
+        mBuilder.setLights(Color.BLUE, onMs, offMs); 
+        mBuilder.setAutoCancel(true);
         
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 	
 	public void sendAlarm(NotificationLogMessage logMessage){
-		Context thisActivity = NotificationHistoryActivity.context;
-		Intent intent = new Intent(thisActivity, AlarmDialogActivity.class);
+		Context thisContext = GcmBroadcastReceiver.context;
+		Intent intent = new Intent(thisContext, AlarmDialogActivity.class);
 		intent.putExtra(ALERT, logMessage.getMessageTitle());
 		intent.putExtra(MESSAGE, logMessage.getMessageBody());
-		thisActivity.startActivity(intent);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		thisContext.startActivity(intent);
 	}
 	
 	public void sendAlert(){

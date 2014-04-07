@@ -62,7 +62,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     static String lastUpdated = "";
     static Date lastUpdatedDate;     
     
-    private NotificationHistoryActivity nha;
+    private static NotificationHistoryActivity nha;
+    static Context nhaContext;
 
 
     @Override
@@ -96,7 +97,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
         	initial = false;
         }        
         displayDeviceStatusOnClick();
-        
+        setUpListView();
     }
     
     public void setUpListView(){
@@ -105,7 +106,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     		nha = new NotificationHistoryActivity();
     	if (nha.getNotificationAdapter() != null)
     		lv.setAdapter(nha.getNotificationAdapter());
-    	
+    	//nhaContext = nha.context;
     }
     
     public static void updateDeviceStatusValues(boolean deviceStatus, String dateString){
