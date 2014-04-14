@@ -1,6 +1,7 @@
 package com.gmail.utexas.rmsystem.roamingapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -9,11 +10,13 @@ import org.apache.http.HttpResponse;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,39 +47,50 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static boolean deviceStatusFlag = false;
     private static String updateTime = "n/a";
+    private static String updateDependentStatus;
     private static boolean initial = true;
     
     String SENDER_ID = "645540694740";    
     
-    /**
-     * Tag used on log messages.
-     */
+
+    //Tag used on log messages.
     static final String TAG = "GCM Registration: MainActivity";
     
+    //Used for GCM registration
     String regid, deviceID;
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
+    
     Context context;
     TextView mDisplay;
-    static boolean status;
+    static boolean deviceStatus;
+    static String lastDependentStatus = "";
     static String lastUpdated = "";
     static Date lastUpdatedDate;     
     
     private static NotificationHistoryActivity nha;
     static Context nhaContext;
+    
+    //Used for recent notifications list
+    NotificationAdapter adapter;
+    public  MainActivity CustomListView = null;
+    private static ArrayList<NotificationLogMessage> arrayOfNotifLogs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("MainActivity", "Gets here 1");
         setContentView(R.layout.activity_main);
         
         context = getApplicationContext();
-        
         deviceStatusSwitch = (Switch) findViewById(R.id.on_off_switch);
         
+        Log.i("MainActivity", "Gets here 2");
         updateDeviceStatus();
+        Log.i("MainActivity", "Gets here 7");
         updateTimeText();
+        updateDependentStatus();
         
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
@@ -97,33 +111,53 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
         	initial = false;
         }        
         displayDeviceStatusOnClick();
-        setUpListView();
+        //setUpRecentNotif();
     }
     
-    public void setUpListView(){
-    	ListView lv = (ListView)findViewById(R.id.listView1);
-    	if (nha == null)
-    		nha = new NotificationHistoryActivity();
-    	if (nha.getNotificationAdapter() != null)
-    		lv.setAdapter(nha.getNotificationAdapter());
-    	//nhaContext = nha.context;
-    }
+    /*public void setUpRecentNotif(){
+    	
+        Resources res = getResources();
+        if(arrayOfNotifLogs == null){
+        	arrayOfNotifLogs = new ArrayList<NotificationLogMessage>();
+        }
+        
+        // Construct the data source
+    	// Create the adapter to convert the array to views
+    	adapter = new NotificationAdapter(CustomListView, arrayOfNotifLogs, res, this);
+    	// Attach the adapter to a ListView
+    	ListView listView = (ListView)findViewById(R.id.listView1);
+    	listView.setAdapter(adapter);
+        	
+    }*/
     
-    public static void updateDeviceStatusValues(boolean deviceStatus, String dateString){
-    	status = deviceStatus;
+    public static void updateDeviceStatusValues(boolean deviceString, String dateString, 
+    		String dependent){
+    	deviceStatus = deviceString;
     	lastUpdated = dateString;
+    	lastDependentStatus = dependent;
     }
     
     public void updateDeviceStatus(){    	    	
-    	deviceStatusSwitch.setChecked(status);
+    	deviceStatusSwitch.setChecked(deviceStatus);
+    	Log.i("MainActivity", "Gets here 3");
     	if (!lastUpdated.equals("")){
     		updateTime = lastUpdated;
     	}
+    	Log.i("MainActivity", "Gets here 4");
+    	if (!lastDependentStatus.equals("")){
+    		updateDependentStatus = lastDependentStatus;
+    	}
+    	Log.i("MainActivity", "Gets here 5");
     }
     
     private void updateTimeText(){
     	TextView textView = (TextView) findViewById(R.id.updateTimeText);
     	textView.setText("Last updated: " + updateTime);
+    }
+    
+    private void updateDependentStatus(){
+    	TextView textview = (TextView) findViewById(R.id.dependentStatusText);
+    	textview.setText(updateDependentStatus);
     }
     
     //Toast message displays device status after change of state

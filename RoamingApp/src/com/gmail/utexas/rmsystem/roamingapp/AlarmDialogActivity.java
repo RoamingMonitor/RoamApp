@@ -12,7 +12,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.text.InputType;
 import android.util.Log;
+import android.widget.EditText;
 
 public class AlarmDialogActivity extends Activity{
 	private final String ALERT = "Alert Title";
@@ -45,7 +47,7 @@ public class AlarmDialogActivity extends Activity{
         builder.setTitle(alertTitle)
         .setMessage(alertMsg)
         .setCancelable(false)
-        .setNegativeButton("Dismiss",new DialogInterface.OnClickListener() {
+        .setPositiveButton("Dismiss",new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             	media.stop();
 	            //vibrateThread.interrupt();
@@ -55,7 +57,21 @@ public class AlarmDialogActivity extends Activity{
                 Intent i = new Intent(context, NotificationHistoryActivity.class);
                 startActivity(i);
             }
-        });
+        })
+        .setNegativeButton("Snooze", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				media.stop();
+				
+				String message = "true";
+				ClientAdapter.postData(message,ClientAdapter.SNOOZE_URL);
+				
+				dialog.cancel();
+				Intent i = new Intent(context, NotificationHistoryActivity.class);
+                startActivity(i);
+			}
+		});
         
         alert = builder.create();
         

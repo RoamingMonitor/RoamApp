@@ -48,7 +48,9 @@ import android.widget.Toast;
         // Construct the data source
         if (!testFlag) {
         	// Create the adapter to convert the array to views
-        	adapter = new NotificationAdapter(CustomListView, arrayOfNotifLogs, res, this);
+        	if (adapter == null){
+        		adapter = new NotificationAdapter(CustomListView, arrayOfNotifLogs, res, this);
+        	}
         	// Attach the adapter to a ListView
         	ListView listView = getListView();
         	listView.setAdapter(adapter);

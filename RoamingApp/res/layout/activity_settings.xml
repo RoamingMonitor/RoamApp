@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/moveDurationText"
-        android:layout_below="@+id/editTextMovDuration"
+        android:layout_below="@+id/textSnoozeTime"
         android:layout_marginTop="12dp"
         android:text="@string/alert_settings"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -222,13 +222,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/stopTimeText"
-        android:layout_below="@+id/startTimePicker"
+        android:layout_below="@+id/sensitivityText"
         android:ems="10"
-        android:hint="@string/in_seconds"
+        android:hint="@string/in_minutes"
         android:inputType="number"
         android:textSize="16sp" />
-
-       
 
     <TextView
         android:id="@+id/moveDurationText"
@@ -237,6 +235,7 @@
         android:layout_alignBaseline="@+id/editTextMovDuration"
         android:layout_alignBottom="@+id/editTextMovDuration"
         android:layout_alignLeft="@+id/sensitivityText"
+        android:layout_below="@+id/sensitivityText"
         android:text="@string/movement_duration"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -249,6 +248,28 @@
         android:layout_marginLeft="25dp"
         android:text="@string/notification"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textSnoozeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/alarmSettingsText" 
+        android:layout_below="@+id/editTextMovDuration"
+        android:text="@string/snooze_time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editTextSnoozeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textSnoozeTime"
+        android:layout_toRightOf="@+id/textSnoozeTime"
+        android:ems="10"
+        android:hint="@string/in_minutes"
+        android:inputType="number"
+        android:textSize="16sp" />
+
 
 </RelativeLayout>
 

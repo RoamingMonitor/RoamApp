@@ -31,6 +31,7 @@ public class ClientAdapter {
 	final static String SETTINGS_URL = "http://rmsystem2014.appspot.com/settings";
 	final static String REGISTER_URL = "http://rmsystem2014.appspot.com/register";
 	final static String MANUAL_TOGGLE = "http://rmsystem2014.appspot.com/manual_status";
+	final static String SNOOZE_URL = "http://rmsystem2014.appspot.com/snooze";
 	
 	public static HttpResponse postData(String message, String url){
 		messageToSend = message;
@@ -52,7 +53,7 @@ public class ClientAdapter {
     private static HttpResponse connect() {
     	
     	HttpClient httpclient = new DefaultHttpClient();
-    	HttpPost httppost; httppost = new HttpPost(SETTINGS_URL);
+    	HttpPost httppost; //httppost = new HttpPost(SETTINGS_URL);
     	
         try {
         	// Add your data        	        	
