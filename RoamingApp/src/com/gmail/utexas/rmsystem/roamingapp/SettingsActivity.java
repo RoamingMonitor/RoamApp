@@ -94,15 +94,15 @@ public class SettingsActivity extends Activity{
 	//Create Settings object to be passed to gson
 	@SuppressLint("NewApi") public Settings createSettings(){
 		boolean error = false;
-		
-//		EditText text1 = (EditText)findViewById(R.id.editTextNotifFreq);
-//		String notifFreq = "";
-//		if(validEntry(text1)){
-//			notifFreq = text1.getText().toString();
-//		} else {
-//			showError(text1);
-//			error = true;
-//		}
+		 
+		EditText text1 = (EditText)findViewById(R.id.editTextSnoozeTime);
+		String snoozeTime = "";
+		if(validEntry(text1)){
+			snoozeTime = text1.getText().toString();
+		} else {
+			showError(text1);
+			error = true;
+		}
        
         EditText text2 = (EditText)findViewById(R.id.editTextMovDuration);
         String moveDuration = "";
@@ -114,8 +114,8 @@ public class SettingsActivity extends Activity{
 		}
 		
 		if (error) return null;				//Return null object signifying improper input
-//		text1.setText("");
-		text2.setText("");
+		//text1.setText("");
+		//text2.setText("");
 		
         TimePicker startTP = (TimePicker) findViewById(R.id.startTimePicker);
         TimePicker stopTP = (TimePicker) findViewById(R.id.stopTimePicker);
@@ -136,7 +136,7 @@ public class SettingsActivity extends Activity{
         boolean alarmSW =  switch5.isChecked();
         
         Settings settings = new Settings(Prefs.getAppID(context), autoTime, startTime, stopTime, moveDuration,
-        			notifRA, alarmRA, notifSW, alarmSW);
+        			snoozeTime, notifRA, alarmRA, notifSW, alarmSW);
 
         return settings;
         
@@ -166,8 +166,16 @@ public class SettingsActivity extends Activity{
 //        notifFreq.setText(settings.frequency+"");
         
         //editTextMovDuration
-        EditText movDuration = (EditText)findViewById(R.id.editTextMovDuration);
-        movDuration.setText(settings.duration+"");
+        if (settings.duration > 0){
+        	EditText movDuration = (EditText)findViewById(R.id.editTextMovDuration);
+        	movDuration.setText(settings.duration+"");
+        }
+         
+        //editTextSnoozeTime
+        if (settings.snooze > 0){
+        	EditText snoozeTime = (EditText)findViewById(R.id.editTextSnoozeTime);
+        	snoozeTime.setText(settings.snooze+"");
+        }       
         
         //notifRASwitch
         Switch notifRA = (Switch)findViewById(R.id.notifRASwitch);

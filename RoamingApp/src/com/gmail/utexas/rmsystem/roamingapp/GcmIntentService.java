@@ -75,19 +75,20 @@ public class GcmIntentService extends IntentService {
     			boolean activeFlag = jsonObject.getBoolean("activeFlag");
     			/*Time today = new Time(Time.getCurrentTimezone());
     			today.setToNow();*/
+    			String dependentStatus = jsonObject.getString("dependentStatus");
     			SimpleDateFormat fmt = new SimpleDateFormat("h:mm a");
     			Date date = new Date();
     			String dateString = fmt.format(date);
     			alertFlag = true;
-    			MainActivity.updateDeviceStatusValues(activeFlag, dateString);    			
+    			MainActivity.updateDeviceStatusValues(activeFlag, dateString, dependentStatus);    			
     		}
     		
     		if (extras.containsKey("logMessage")){
 	    		JSONObject jsonObject = new JSONObject(extras.getString("logMessage"));
 	    		logMessage = new NotificationLogMessage(jsonObject);
 	    		//Log.i(TAG, "Message Title: "+logMessage.getMessageTitle());
-	    		Log.i(TAG, "Context: "+NotificationHistoryActivity.context);
-	        	MessageHandler msgHandler = new MessageHandler(NotificationHistoryActivity.context, logMessage);
+	    		Log.i(TAG, "Context: "+ NotificationHistoryActivity.context);
+	        	MessageHandler msgHandler = new MessageHandler(getApplicationContext(), logMessage);
 	        	Log.i(TAG, "Log Message: "+jsonObject);
 	        	//Log.i(TAG, "About to send alert of type: " + logMessage.getAlertType());
 	        	msgHandler.sendAlert();
