@@ -12,7 +12,7 @@
     <string name="automated_power_on">Using Schedule:</string>
     <string name="sensitivity">Sensitivity</string>
     <string name="stop_time">"Stop Time: "</string>
-    <string name="movement_duration">&quot;Roaming Duration: &quot;</string>
+    <string name="movement_duration">&quot;Allowed Roaming Duration: &quot;</string>
     <string name="notification_frequency">&quot;Update Frequency: &quot;</string>
     <string name="in_minutes">in minutes</string>
     <string name="in_seconds">in seconds</string>
@@ -37,5 +37,9 @@
     <string name="device_setup">Device Setup</string>
     <string name="enter_verification_from_device">Enter verification from device</string>
     <string name="submit">Submit</string>
+    <string name="space">" "</string>
+    <string name="snooze_time">Snooze Time:</string>
+    <string name="dependent_status">All Clear</string>
+    <string name="enter_time">Enter Time</string>
 
 </resources>

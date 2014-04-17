@@ -29,7 +29,7 @@
         android:layout_alignLeft="@+id/schedulingText"
         android:layout_below="@+id/schedulingText"
         android:layout_marginTop="6dp"
-        android:text="@string/automated_power_on"
+        android:text="@string/automated_power_on" 
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -96,22 +96,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/stopTimeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/autoTimeSwitch"
-        android:layout_marginTop="4dp"
-        android:layout_toRightOf="@+id/SettingsText"
-        android:text="@string/stop_time"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
         android:id="@+id/sensitivityText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/startTimeText"
+        android:layout_below="@+id/stopTimeText"
         android:layout_alignLeft="@+id/autoPowerOnText"
-        android:layout_marginTop="125sp"
+        android:layout_marginTop="36sp"
         android:layout_marginBottom="12dp"
         android:text="@string/sensitivity"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -122,9 +112,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/notifText1"
         android:layout_below="@+id/autoTimeSwitch"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="18dp"
         android:text="@string/start_time"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/alarmText1"
@@ -144,16 +134,6 @@
         android:layout_alignTop="@+id/alarmText1"
         android:textOff="OFF"
         android:textOn="ON" />
-
-    <TextView
-        android:id="@+id/notifText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/notifText2"
-        android:layout_below="@+id/roamingAlertText"
-        android:layout_marginTop="4dp"
-        android:text="@string/notification"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Switch
         android:id="@+id/notifRASwitch"
@@ -177,25 +157,6 @@
         android:textOff="OFF"
         android:textOn="ON" />
 
-    <TimePicker
-        android:id="@+id/startTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/autoPowerOnText"
-        android:scaleX="0.4"
-        android:scaleY="0.4" />
-
-    <TimePicker
-        android:id="@+id/stopTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/autoPowerOnText"
-        android:layout_marginLeft="12dp"
-        android:layout_toRightOf="@+id/startTimeText"
-        android:scaleX="0.4"
-        android:scaleY="0.4" />
-
     <TextView
         android:id="@+id/schedulingText"
         android:layout_width="wrap_content"
@@ -217,37 +178,18 @@
         android:textOn="ON"
         tools:ignore="NewApi" />
 
-    <EditText
-        android:id="@+id/editTextMovDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/stopTimeText"
-        android:layout_below="@+id/sensitivityText"
-        android:ems="10"
-        android:hint="@string/in_minutes"
-        android:inputType="number"
-        android:textSize="16sp" />
-
     <TextView
         android:id="@+id/moveDurationText"
-        android:layout_width="wrap_content"
+        android:layout_width="wrap_content" 
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/editTextMovDuration"
         android:layout_alignBottom="@+id/editTextMovDuration"
         android:layout_alignLeft="@+id/sensitivityText"
         android:layout_below="@+id/sensitivityText"
         android:text="@string/movement_duration"
+        android:textSize="17dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/notifText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/swAlertText"
-        android:layout_below="@+id/swAlertText"
-        android:layout_marginLeft="25dp"
-        android:text="@string/notification"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    	<!--  -->
 
     <TextView
         android:id="@+id/textSnoozeTime"
@@ -269,6 +211,71 @@
         android:hint="@string/in_minutes"
         android:inputType="number"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/notifText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/roamingAlertText"
+        android:layout_below="@+id/roamingAlertText"
+        android:layout_marginLeft="25dp"
+        android:text="@string/notification"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/notifText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/notifText1"
+        android:layout_below="@+id/swAlertText"
+        android:text="@string/notification"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/stopTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/startTimeText"
+        android:layout_below="@+id/startTimeText"
+        android:layout_marginTop="18dp"
+        android:text="@string/stop_time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editTextMovDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sensitivityText"
+        android:layout_toRightOf="@+id/moveDurationText"
+        android:ems="10"
+        android:hint="@string/in_minutes"
+        android:inputType="number"
+        android:textSize="16sp" >
+
+        
+    </EditText>
+
+    <EditText
+        android:id="@+id/editTextStartTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/startTimeText"
+        android:layout_alignBottom="@+id/startTimeText"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/stopTimeText"
+        android:ems="10"
+        android:hint="@string/enter_time" />
+
+    <EditText
+        android:id="@+id/editTextStopTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/stopTimeText"
+        android:layout_alignBottom="@+id/stopTimeText"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/startTimeText"
+        android:ems="10"
+        android:hint="@string/enter_time" />
 
 
 </RelativeLayout>

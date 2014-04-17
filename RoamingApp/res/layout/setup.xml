@@ -12,29 +12,42 @@
         android:layout_marginLeft="24dp"
         android:layout_marginTop="19dp"
         android:text="@string/device_setup"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:textSize="34sp" />
 
     <EditText
         android:id="@+id/verif_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/setupTitle"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/setupTitle"
         android:layout_marginTop="31dp"
-        android:layout_toLeftOf="@+id/submit_verif"
+        android:layout_marginRight="24dp"
         android:ems="10"
-        android:hint="@string/enter_verification_from_device"
-        android:textSize="14sp" />
+        android:hint="@string/enter_verification_from_device" />
+
+    <EditText
+        android:id="@+id/nameEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/setupTitle"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/verif_entry"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="14dp"
+        android:ems="10" 
+        android:hint="Name of dependent"/>
 
     <Button
         android:id="@+id/submit_verif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/verif_entry"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/verif_entry"
+        android:layout_alignLeft="@+id/setupTitle"
+        android:layout_below="@+id/nameEntry"
+        android:layout_marginTop="21dp"
         android:onClick="submitVerification"
-        android:text="@string/submit" 
+        android:text="@string/submit"
         android:textSize="14sp" />
 
 </RelativeLayout>
