@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
     private static String app_id = "app id";
     private static String app_version = "app version";
     private static String saved_settings = "saved settings";
+    private static String dependent_name = "dependent name";
+    private static String verif_code = "verif code";
     private static String pref_name = "pref name";
     private static int pref_privacy = 0;
 
@@ -37,6 +39,14 @@ import android.content.SharedPreferences;
     public static String getSettings(Context context) {
         return getPrefs(context).getString(saved_settings, "{}");
     }
+    
+    public static String getDependentName(Context context) {
+    	return getPrefs(context).getString(dependent_name, "Dependent");
+    }
+    
+    public static String getVerifCode(Context context) {
+    	return getPrefs(context).getString(verif_code, "");
+    }
 
     public static void setDeviceID(Context context, String value) {
         getPrefs(context).edit().putString(device_id, value).apply();
@@ -48,6 +58,14 @@ import android.content.SharedPreferences;
 
     public static void setAppVersion(Context context, int value) {
         getPrefs(context).edit().putInt(app_version, value).apply();
+    }
+    
+    public static void setDependentName(Context context, String value){
+    	getPrefs(context).edit().putString(dependent_name, value).apply();
+    }
+    
+    public static void setVerifCode(Context context, String value){
+    	getPrefs(context).edit().putString(verif_code, value).apply();
     }
     
     //Saves json representation of Settings object to SharedPreferences

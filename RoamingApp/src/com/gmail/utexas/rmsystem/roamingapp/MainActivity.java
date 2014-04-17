@@ -10,25 +10,24 @@ import org.apache.http.HttpResponse;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,22 +79,22 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("MainActivity", "Gets here 1");
         setContentView(R.layout.activity_main);
         
         context = getApplicationContext();
         deviceStatusSwitch = (Switch) findViewById(R.id.on_off_switch);
         
-        Log.i("MainActivity", "Gets here 2");
         updateDeviceStatus();
-        Log.i("MainActivity", "Gets here 7");
         updateTimeText();
         updateDependentStatus();
         
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
+        	Log.i(TAG, "Google Play Services is installed.");
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
+            //regid = "";
+        	//Prefs.getPrefs(context, MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
             Log.i(TAG, "RegId is: "  + regid);
             
             if (regid.isEmpty()) {
@@ -139,15 +138,12 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     
     public void updateDeviceStatus(){    	    	
     	deviceStatusSwitch.setChecked(deviceStatus);
-    	Log.i("MainActivity", "Gets here 3");
     	if (!lastUpdated.equals("")){
     		updateTime = lastUpdated;
     	}
-    	Log.i("MainActivity", "Gets here 4");
     	if (!lastDependentStatus.equals("")){
     		updateDependentStatus = lastDependentStatus;
     	}
-    	Log.i("MainActivity", "Gets here 5");
     }
     
     private void updateTimeText(){
@@ -156,8 +152,28 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     }
     
     private void updateDependentStatus(){
+    	String name = "";
+    	if (SetupActivity.context != null){
+        	Prefs.getPrefs(SetupActivity.context, SetupActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+    		name = Prefs.getDependentName(SetupActivity.context);
+    	}
+    		
     	TextView textview = (TextView) findViewById(R.id.dependentStatusText);
-    	textview.setText(updateDependentStatus);
+    	String status;
+    	Log.i("Main Activity", "Saved Name: "+name);
+    	Log.i("Main Activity", "DependentStatus: "+updateDependentStatus);
+    	int startBold = 0;
+    	if (updateDependentStatus == null){
+    		status = "Device Inactive";
+    		startBold = status.length();
+    	} else {
+    		status = name + " is " + updateDependentStatus+".";
+    		startBold = name.length() + 4;
+    	}
+    	SpannableString spanString = new SpannableString(status);
+    	
+    	spanString.setSpan(new StyleSpan(Typeface.BOLD), startBold, spanString.length(), 0);
+    	textview.setText(spanString);
     }
     
     //Toast message displays device status after change of state
@@ -174,7 +190,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
     				Toast.makeText(getApplicationContext(),
     						"Device is OFF", Toast.LENGTH_SHORT).show();
     			}
-    			Prefs.getPrefs(context, MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+    			//Prefs.getPrefs(context, MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
     	        deviceID = Prefs.getDeviceID(context);
     			toggleInBackground();
     		}
@@ -378,7 +394,9 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
         }.execute(null, null, null);
     }
     
-    
+    /*public void saveDepenedentName(String name){
+    	Prefs.setDependentName(context, name);
+    }*/
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
